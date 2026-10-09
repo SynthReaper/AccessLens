@@ -4,6 +4,7 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
   {
     id: 'sample-tech-symposium',
     title: 'MUJ TechNova AI Symposium 2026',
+    shortLabel: 'TechNova',
     subtitle: 'Annual flagship student robotics & LLM summit',
     thumbnailPath: '/samples/tech_symposium_poster.svg',
     description: 'High-density flyer announcing keynotes, robotics exhibition, registration deadline, and venue.',
@@ -111,6 +112,7 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
   {
     id: 'sample-library-holiday',
     title: 'Central Library Mid-Term Schedule & Exam Overnight Access',
+    shortLabel: '24/7 Library',
     subtitle: 'Urgent administrative notice from Library Committee',
     thumbnailPath: '/samples/library_notice.svg',
     description: 'Official notice detailing modified library hours, overnight study room bookings, and overdue book clearance.',
@@ -202,6 +204,7 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
   {
     id: 'sample-club-audition',
     title: 'Aeronautics & Drone Lab Recruitment 2026',
+    shortLabel: 'Drone Lab',
     subtitle: 'Core committee auditions & pilot developer recruitment',
     thumbnailPath: '/samples/drone_audition_poster.svg',
     description: 'Recruitment flyer for Aeromodelling & Autonomous Systems Club with multiple domains and interview slots.',

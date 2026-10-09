@@ -85,8 +85,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         />
 
         {/* Washi tape header */}
-        <div className="absolute -top-3 left-10 w-36 h-6 washi-tape-tertiary -rotate-2 rounded-xs border border-[#1e1b19] flex items-center justify-center shadow-press-sm pointer-events-none">
-          <span className="font-mono text-[9px] uppercase tracking-wider text-[#2a1800] font-bold">DROP &amp; PIN APERTURE</span>
+        <div className="absolute -top-3.5 left-8 px-3.5 py-1 washi-tape-secondary -rotate-2 rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm pointer-events-none whitespace-nowrap z-10">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#03210c] font-bold">
+            DROP &amp; PIN APERTURE
+          </span>
         </div>
 
         {/* Pushpins */}
@@ -133,7 +135,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             <span className="font-bold">VERIFIED SAMPLE TAPES</span>
             <span className="text-[#8d7168] hidden sm:inline">• 1-click test posters from around campus</span>
           </div>
-          <span className="font-mono text-[10px] font-bold px-2 py-0.5 bg-[#c8ecca] text-[#03210c] border border-[#46664b] rounded -rotate-1">
+          <span className="font-mono text-[10px] font-bold px-2.5 py-0.5 bg-[#c8ecca] text-[#03210c] border border-[#46664b] rounded shadow-press-sm -rotate-1">
             Gemma 4 Benchmark
           </span>
         </div>
@@ -152,7 +154,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                 }`}
               >
                 <div className="flex items-start gap-4">
-                  <span className="font-mono text-sm font-bold text-[#a73400] mt-0.5 bg-[#faf2ee] w-7 h-7 rounded border border-[#1e1b19] flex items-center justify-center shrink-0 shadow-press-sm">
+                  <span className="font-mono text-sm font-bold text-[#a73400] mt-0.5 bg-[#faf2ee] w-8 h-8 rounded-lg border-2 border-[#1e1b19] flex items-center justify-center shrink-0 shadow-press-sm">
                     0{idx + 1}
                   </span>
                   <div>
@@ -160,7 +162,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                       <span className="font-display font-bold text-base text-[#1e1b19]">
                         {sample.title}
                       </span>
-                      <span className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-[#faf2ee] border border-[#1e1b19] text-[#594139]">
+                      <span className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-[#fff8f5] border border-[#1e1b19] text-[#594139] shadow-press-sm">
                         {sample.category.replace('_', ' ')}
                       </span>
                     </div>
@@ -171,15 +173,15 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                 </div>
 
                 <div className="flex items-center gap-4 shrink-0 font-mono text-xs">
-                  <span className="text-[#8d7168] font-bold">
-                    {sample.cachedResult.hotspots.length} Markers
+                  <span className="px-2 py-1 bg-[#faf2ee] border border-[#1e1b19] rounded text-[11px] text-[#594139] font-bold shadow-press-sm">
+                    🎯 {sample.cachedResult.hotspots.length} Markers
                   </span>
                   <button
                     type="button"
                     disabled={isLoading}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#faf2ee] hover:bg-[#a73400] hover:text-white border-2 border-[#1e1b19] rounded font-bold shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all text-[#1e1b19]"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#ffffff] hover:bg-[#a73400] hover:text-white border-2 border-[#1e1b19] rounded-lg font-bold shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all text-[#1e1b19]"
                   >
-                    <span>Run Zine Parser</span>
+                    <span>Inspect Notice</span>
                     <span>→</span>
                   </button>
                 </div>

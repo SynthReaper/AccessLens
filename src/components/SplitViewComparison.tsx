@@ -46,23 +46,18 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col h-full rounded-xl border-2 border-[#1e1b19] bg-[#f4ece8] shadow-press-lg overflow-hidden">
-      {/* Top Washi Tape Strips (Physical Adhesives) */}
-      <div className="absolute -top-2 left-12 w-32 h-6 washi-tape-tertiary -rotate-2 rounded-xs shadow-press-sm z-30 pointer-events-none flex items-center justify-center">
-        <span className="font-mono text-[9px] text-[#2a1800] tracking-widest uppercase font-bold">WASHI TAPE // #08</span>
-      </div>
-      <div className="absolute -top-2 right-16 w-36 h-6 washi-tape-primary rotate-3 rounded-xs shadow-press-sm z-30 pointer-events-none flex items-center justify-center">
-        <span className="font-mono text-[9px] text-[#390c00] tracking-widest uppercase font-bold">AUTUMN NOTICE POST</span>
-      </div>
-
+    <div className="relative flex flex-col rounded-xl border-2 border-[#1e1b19] bg-[#f4ece8] shadow-press-lg overflow-hidden">
       {/* Zine Canvas Utility Bar */}
-      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-[#1e1b19] bg-[#faf2ee] text-xs pt-5">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-[#1e1b19] bg-[#faf2ee] text-xs">
+        <div className="flex items-center gap-2 flex-wrap">
           <span className="w-2.5 h-2.5 rounded-full bg-[#a73400] inline-block animate-pulse" />
           <span className="font-display font-bold text-sm text-[#1e1b19]">Notice Bulletin Board</span>
+          <span className="font-mono text-[10px] px-2 py-0.5 rounded washi-tape-tertiary text-[#2a1800] border border-[#1e1b19] font-bold shadow-press-sm -rotate-1">
+            FOLIO #08
+          </span>
           {hasUncertainties && (
             <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#ffddb6] text-[#2a1800] border border-[#805200] font-bold rotate-1">
-              🍂 Torn Corner Noted
+              🍂 Physical Anomaly Noted
             </span>
           )}
         </div>
@@ -119,20 +114,27 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
       </div>
 
       {/* Pinned Poster Board (Heavy Newsprint Canvas) */}
-      <div className="relative flex-1 min-h-[580px] max-h-[740px] overflow-auto flex items-center justify-center p-8 bg-[#fff8f5] bg-newsprint">
+      <div className="relative flex-1 min-h-[580px] max-h-[760px] overflow-auto flex items-center justify-center p-4 sm:p-6 bg-[#fff8f5] bg-newsprint">
         {/* Pushpins in corners */}
-        <div className="absolute top-4 left-4 pushpin-primary z-20" />
-        <div className="absolute top-4 right-4 pushpin-secondary z-20" />
+        <div className="absolute top-3 left-3 pushpin-primary z-20" />
+        <div className="absolute top-3 right-3 pushpin-secondary z-20" />
 
         <div
           style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
-          className="relative transition-transform duration-150 inline-flex flex-col items-center justify-center max-w-full"
+          className="relative transition-transform duration-150 inline-block max-w-full my-4"
         >
+          {/* Pinned adhesive tape on top of the physical notice flyer */}
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 washi-tape-primary border-2 border-[#1e1b19] rounded-xs shadow-press-sm z-30 pointer-events-none rotate-1 whitespace-nowrap">
+            <span className="font-mono text-[9px] text-[#390c00] font-bold uppercase tracking-wider">
+              PINNED CAMPUS FLYER
+            </span>
+          </div>
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt="Source Campus Poster"
-            className="w-auto h-auto max-h-[640px] max-w-full min-w-[320px] sm:min-w-[420px] rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white"
+            className="w-full max-w-[540px] h-auto rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white"
           />
 
           {/* 2D Hotspot Overlays */}

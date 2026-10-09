@@ -26,26 +26,17 @@
   background-size: 16px 16px;
 }
 
-/* Washi Tape styling with jagged or translucent edges */
+/* Washi Tape authentic tinted paper stocks */
 .washi-tape-tertiary {
-  background: rgba(255, 221, 182, 0.92);
-  box-shadow: 1px 1px 2px rgba(30, 27, 25, 0.15);
-  border-left: 2px dashed rgba(167, 52, 0, 0.2);
-  border-right: 2px dashed rgba(167, 52, 0, 0.2);
+  background: rgba(255, 221, 182, 0.95);
 }
 
 .washi-tape-primary {
-  background: rgba(255, 219, 207, 0.92);
-  box-shadow: 1px 1px 2px rgba(30, 27, 25, 0.15);
-  border-left: 2px dashed rgba(167, 52, 0, 0.2);
-  border-right: 2px dashed rgba(167, 52, 0, 0.2);
+  background: rgba(255, 219, 207, 0.95);
 }
 
 .washi-tape-secondary {
-  background: rgba(200, 236, 202, 0.92);
-  box-shadow: 1px 1px 2px rgba(30, 27, 25, 0.15);
-  border-left: 2px dashed rgba(70, 102, 75, 0.2);
-  border-right: 2px dashed rgba(70, 102, 75, 0.2);
+  background: rgba(200, 236, 202, 0.95);
 }
 
 /* Tactile ink drop-shadows (Zine press effect) */

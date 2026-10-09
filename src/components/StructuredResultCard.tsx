@@ -73,11 +73,11 @@ Extracted via AccessLens with Gemma 4 Vision.`;
   };
 
   return (
-    <div className="flex flex-col h-full space-y-5 overflow-y-auto pr-1">
+    <div className="flex flex-col space-y-5">
       {/* CARD 1: Quick Scoop (TL;DR) - Styled like a legal pad memo with tape */}
       <div className="relative bg-[#ffddb6]/35 border-2 border-[#1e1b19] rounded-xl p-5 sm:p-6 shadow-press">
         {/* Memo clip tape */}
-        <div className="absolute -top-3 right-8 w-28 h-6 washi-tape-tertiary -rotate-2 rounded-xs border border-[#1e1b19] flex items-center justify-center shadow-press-sm">
+        <div className="absolute -top-3.5 right-6 px-3.5 py-0.5 washi-tape-tertiary -rotate-2 rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm whitespace-nowrap z-10">
           <span className="font-mono text-[9px] uppercase tracking-wider text-[#2a1800] font-bold">MEMO CLIP</span>
         </div>
 
@@ -207,7 +207,7 @@ Extracted via AccessLens with Gemma 4 Vision.`;
             </div>
             <div className="mt-2">
               <span className="font-mono text-[10px] text-[#594139] uppercase font-bold block">Campus Venue</span>
-              <span className="font-display font-bold text-sm text-[#1e1b19] line-clamp-1">
+              <span className="font-display font-bold text-sm text-[#1e1b19] line-clamp-2 leading-snug">
                 {eventDetails.venue || <span className="italic text-[#8d7168]">Check department</span>}
               </span>
             </div>
@@ -228,7 +228,7 @@ Extracted via AccessLens with Gemma 4 Vision.`;
             </div>
             <div className="mt-2">
               <span className="font-mono text-[10px] text-[#594139] uppercase font-bold block">Lead Host Guild</span>
-              <span className="font-display font-bold text-sm text-[#1e1b19] line-clamp-1">
+              <span className="font-display font-bold text-sm text-[#1e1b19] line-clamp-2 leading-snug">
                 {eventDetails.organizer || <span className="italic text-[#8d7168]">University Chapter</span>}
               </span>
             </div>

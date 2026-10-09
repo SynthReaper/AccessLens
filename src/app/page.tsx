@@ -116,7 +116,7 @@ export default function Home() {
                     : 'washi-tape-primary text-[#390c00] -rotate-2 hover:rotate-0'
                 }`}
               >
-                Tape #{i + 1}: {s.title.split(' ')[1] || 'Notice'}
+                Tape #{i + 1}: {s.shortLabel || 'Notice'}
               </button>
             ))}
           </div>
@@ -159,8 +159,8 @@ export default function Home() {
               <div className="absolute top-4 right-4 pushpin-secondary" />
 
               {/* Washi tape on hero */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-48 h-6 washi-tape-tertiary rounded-xs border border-[#1e1b19] flex items-center justify-center shadow-press-sm pointer-events-none rotate-1">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-[#2a1800] font-bold">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 washi-tape-tertiary rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm pointer-events-none rotate-1 whitespace-nowrap z-10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#2a1800] font-bold">
                   HACKTOBERFEST 2026 // MUJ SPECIAL
                 </span>
               </div>
@@ -252,30 +252,33 @@ export default function Home() {
         {selectedImage && analysisResult && !isLoading && (
           <div className="space-y-4">
             {/* Top Folio Status Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-dashed border-[#1e1b19]/25">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-[#a73400] text-white font-mono text-xs font-bold rounded shadow-press-sm -rotate-1">
+                <span className="px-3 py-1 bg-[#a73400] text-white font-mono text-xs font-bold rounded border-2 border-[#1e1b19] shadow-press-sm -rotate-1">
                   NOTICE #{analysisResult.category.toUpperCase().slice(0, 8)}
                 </span>
-                <span className="font-display font-bold text-xl text-[#1e1b19]">
+                <span className="font-display font-bold text-xl sm:text-2xl text-[#1e1b19] tracking-tight">
                   {analysisResult.eventDetails.title || 'Campus Circular Details'}
                 </span>
-                <span className="px-2 py-0.5 bg-[#c8ecca] text-[#03210c] font-mono text-[10px] font-bold border border-[#46664b] rounded rotate-1">
+                <span className="px-2.5 py-0.5 bg-[#c8ecca] text-[#03210c] font-mono text-[10px] font-bold border border-[#46664b] rounded rotate-1 shadow-press-sm">
                   🍁 VERIFIED BY GEMMA 4
                 </span>
               </div>
 
-              <div className="font-mono text-xs text-[#594139] flex items-center gap-3">
-                <span>⏱️ {(analysisResult.processingTimeMs / 1000).toFixed(2)}s</span>
-                <span>•</span>
-                <span>{analysisResult.hotspots.length} Markers Active</span>
+              <div className="font-mono text-xs text-[#594139] flex items-center gap-2">
+                <span className="px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
+                  ⏱️ {(analysisResult.processingTimeMs / 1000).toFixed(2)}s
+                </span>
+                <span className="px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
+                  🎯 {analysisResult.hotspots.length} Markers Active
+                </span>
               </div>
             </div>
 
             {/* Split Screen Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Panel: The Tactile Notice Board (Columns 1-7) */}
-              <div className="lg:col-span-7 h-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pb-16">
+              {/* Left Panel: The Tactile Notice Board (Columns 1-7) - Sticky on Desktop */}
+              <div className="lg:col-span-7 lg:sticky lg:top-20">
                 <SplitViewComparison
                   imageSrc={selectedImage}
                   hasUncertainties={analysisResult.uncertainties.length > 0}
@@ -287,7 +290,7 @@ export default function Home() {
               </div>
 
               {/* Right Panel: Student Intelligence Digest (Columns 8-12) */}
-              <div className="lg:col-span-5 h-full">
+              <div className="lg:col-span-5">
                 <StructuredResultCard
                   analysis={analysisResult}
                   selectedHotspotId={selectedHotspot?.id || null}
