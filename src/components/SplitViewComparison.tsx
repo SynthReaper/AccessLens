@@ -112,16 +112,16 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
       </div>
 
       {/* Image display canvas with Hotspots */}
-      <div className="relative flex-1 min-h-[460px] max-h-[640px] overflow-auto flex items-center justify-center p-4 bg-zinc-950/90">
+      <div className="relative flex-1 min-h-[520px] max-h-[680px] overflow-auto flex items-center justify-center p-4 bg-zinc-950/90">
         <div
           style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
-          className="relative transition-transform duration-150 inline-block max-w-full"
+          className="relative transition-transform duration-150 inline-flex flex-col items-center justify-center max-w-full"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt="Source Campus Poster"
-            className="max-h-[580px] w-auto rounded-lg shadow-2xl border border-zinc-800 object-contain select-none block"
+            className="w-auto h-auto max-h-[560px] max-w-full min-w-[280px] sm:min-w-[360px] rounded-lg shadow-2xl border border-zinc-800 object-contain select-none block"
           />
 
           {/* 2D Hotspot Overlays */}

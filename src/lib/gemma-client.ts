@@ -95,12 +95,28 @@ export async function analyzeNoticeImage(
 
   const ai = new GoogleGenAI({ apiKey });
 
-  // Clean base64 string
-  const cleanBase64 = base64Data.replace(/^data:image\/[a-z]+;base64,/, '');
+  // Robust data URL prefix stripping: matches data:image/...;base64, or any data:...;base64,
+  let cleanBase64 = base64Data;
+  const match = base64Data.match(/^data:([^;]+);base64,([\s\S]+)$/);
+  let effectiveMime = mimeType;
+  if (match) {
+    effectiveMime = match[1];
+    cleanBase64 = match[2];
+  } else if (cleanBase64.startsWith('data:')) {
+    cleanBase64 = cleanBase64.split(',')[1] || cleanBase64;
+  }
+  // Trim all whitespace / newlines
+  cleanBase64 = cleanBase64.replace(/\s+/g, '');
+
+  // Note: Gemini API requires raster images (image/jpeg, image/png, image/webp, image/heic)
+  // If an SVG is sent to Gemini, normalize mimeType to image/png
+  if (effectiveMime.includes('svg')) {
+    effectiveMime = 'image/png';
+  }
 
   // 1. Try Primary Model: Gemma 4 (gemma-4-31b-it)
   try {
-    const result = await executeModelCall(ai, PRIMARY_MODEL, cleanBase64, mimeType, focusMode, startTime);
+    const result = await executeModelCall(ai, PRIMARY_MODEL, cleanBase64, effectiveMime, focusMode, startTime);
     return result;
   } catch (primaryErr: unknown) {
     const errorMsg = primaryErr instanceof Error ? primaryErr.message : String(primaryErr);
