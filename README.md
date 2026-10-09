@@ -1,6 +1,6 @@
 # 🔍 AccessLens: Intelligent Campus Notice Parser
 
-[![AccessLens CI](https://github.com/accesslens/accesslens/actions/workflows/ci.yml/badge.svg)](https://github.com/accesslens/accesslens/actions)
+[![AccessLens CI](https://github.com/SynthReaper/AccessLens/actions/workflows/ci.yml/badge.svg)](https://github.com/SynthReaper/AccessLens/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Model](https://img.shields.io/badge/Model-Google%20Gemma%204%20(31B)--38bdf8)](https://ai.google.dev/gemma)
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest%202026-MUJ%20Challenge-orange)](https://hacktoberfest-handbook.mlh.com)
@@ -73,7 +73,7 @@ graph LR
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/accesslens/accesslens.git
+git clone https://github.com/SynthReaper/AccessLens.git
 cd accesslens
 npm install
 ```

@@ -116,13 +116,12 @@ export default function Home() {
                 key={s.id}
                 type="button"
                 onClick={() => handleSelectDirectSample(s)}
-                className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
-                  i === 0
-                    ? 'washi-tape-tertiary text-[#2a1800] -rotate-1 hover:rotate-0'
-                    : i === 1
+                className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${i === 0
+                  ? 'washi-tape-tertiary text-[#2a1800] -rotate-1 hover:rotate-0'
+                  : i === 1
                     ? 'washi-tape-secondary text-[#03210c] rotate-1 hover:rotate-0'
                     : 'washi-tape-primary text-[#390c00] -rotate-2 hover:rotate-0'
-                }`}
+                  }`}
               >
                 Tape #{i + 1}: {s.shortLabel || 'Notice'}
               </button>
@@ -132,7 +131,7 @@ export default function Home() {
           {/* Action CTAs */}
           <div className="flex items-center gap-2 font-mono text-xs shrink-0">
             <a
-              href="https://github.com/accesslens/accesslens"
+              href="https://github.com/SynthReaper/AccessLens"
               target="_blank"
               rel="noopener noreferrer"
               className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ffffff] hover:bg-[#faf2ee] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
@@ -193,33 +192,30 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setFocusMode('full')}
-                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${
-                      focusMode === 'full'
-                        ? 'bg-[#a73400] text-white -rotate-1'
-                        : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
-                    }`}
+                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${focusMode === 'full'
+                      ? 'bg-[#a73400] text-white -rotate-1'
+                      : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
+                      }`}
                   >
                     Full Notice + Markers
                   </button>
                   <button
                     type="button"
                     onClick={() => setFocusMode('event_only')}
-                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${
-                      focusMode === 'event_only'
-                        ? 'bg-[#a73400] text-white rotate-1'
-                        : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
-                    }`}
+                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${focusMode === 'event_only'
+                      ? 'bg-[#a73400] text-white rotate-1'
+                      : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
+                      }`}
                   >
                     Logistics Only
                   </button>
                   <button
                     type="button"
                     onClick={() => setFocusMode('deadlines_only')}
-                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${
-                      focusMode === 'deadlines_only'
-                        ? 'bg-[#a73400] text-white -rotate-1'
-                        : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
-                    }`}
+                    className={`px-3 py-1.5 rounded font-bold border-2 border-[#1e1b19] shadow-press-sm transition-all active:translate-x-0.5 active:translate-y-0.5 ${focusMode === 'deadlines_only'
+                      ? 'bg-[#a73400] text-white -rotate-1'
+                      : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#f4ece8]'
+                      }`}
                   >
                     Urgent Deadlines
                   </button>
@@ -435,7 +431,7 @@ export default function Home() {
               </div>
               <div className="pt-1 flex flex-col gap-1 text-[11px]">
                 <a
-                  href="https://github.com/accesslens/accesslens"
+                  href="https://github.com/SynthReaper/AccessLens"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold text-[#cb4914] hover:underline inline-flex items-center gap-1"
@@ -451,7 +447,7 @@ export default function Home() {
           <div className="pt-6 border-t-2 border-[#1e1b19] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2 py-0.5 bg-[#cb4914] text-white font-bold rounded shadow-press-xs text-[10px] uppercase">
-                🍁 ZERO AI SLOP
+                Made By SynthReaper
               </span>
               <span className="text-[#1e1b19] font-bold">AccessLens Notice Workbench</span>
               <span>•</span>
@@ -459,7 +455,7 @@ export default function Home() {
             </div>
 
             <div className="text-[#785b52] font-mono text-[10px] flex items-center gap-2">
-              <span>MUJ INNOVATION LABS</span>
+              <span>MUJ X Hacktober</span>
               <span>•</span>
               <span>OCTOBER 2026</span>
             </div>
