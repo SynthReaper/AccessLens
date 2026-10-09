@@ -7,16 +7,18 @@ import {
   Info,
   ShieldCheck,
   GitBranch,
-  Layers
+  Layers,
+  Crosshair
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
 import { SplitViewComparison } from '@/components/SplitViewComparison';
 import { StructuredResultCard } from '@/components/StructuredResultCard';
-import { AccessLensAnalysis, SamplePoster } from '@/lib/types';
+import { AccessLensAnalysis, SamplePoster, HotspotDetail } from '@/lib/types';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AccessLensAnalysis | null>(null);
+  const [selectedHotspot, setSelectedHotspot] = useState<HotspotDetail | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState<'full' | 'event_only' | 'deadlines_only'>('full');
@@ -27,6 +29,7 @@ export default function Home() {
     sampleData?: SamplePoster
   ) => {
     setSelectedImage(previewUrl || base64);
+    setSelectedHotspot(null);
     setError(null);
 
     // If it's a sample and pre-cached, provide instant response while allowing live re-run
@@ -65,6 +68,7 @@ export default function Home() {
   const handleReset = () => {
     setSelectedImage(null);
     setAnalysisResult(null);
+    setSelectedHotspot(null);
     setError(null);
   };
 
@@ -81,18 +85,18 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <span className="font-bold text-base tracking-tight text-white">AccessLens</span>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-sky-400 border border-zinc-700">
-                  Gemma 4 Multimodal
+                  Gemma 4 Spatial Vision
                 </span>
               </div>
               <p className="text-[11px] text-zinc-400 hidden sm:block">
-                Campus Notice &amp; Poster Intelligence • Hacktoberfest 2026 × MUJ
+                Interactive Spatial Notice Intelligence • Hacktoberfest 2026 × MUJ
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com"
+              href="https://github.com/accesslens/accesslens"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 transition-colors"
@@ -121,14 +125,13 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center space-y-3 pt-4 pb-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/40 border border-sky-800/60 text-sky-300 text-xs font-mono">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Google Gemma 4 Track • Open-Source Project</span>
+              <span>Google Gemma 4 Track • 2D Spatial Grounding</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-              Campus notices turned into structured action.
+              Campus signs transformed into clickable hotspots.
             </h1>
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              Photograph any campus announcement, event poster, or department circular.
-              AccessLens extracts confirmed logistics, flags torn or unreadable details, and exports to calendar in one click.
+              Snap any physical poster or circular. Gemma 4 detects 2D bounding coordinates over dates, rooms, and deadlines—floating interactive action buttons directly on the photo.
             </p>
 
             {/* Mode Selector */}
@@ -143,7 +146,7 @@ export default function Home() {
                     : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                Full Notice
+                Full Notice + Spatial Boxes
               </button>
               <button
                 type="button"
@@ -154,7 +157,7 @@ export default function Home() {
                     : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                Event Details Only
+                Event Logistics Only
               </button>
               <button
                 type="button"
@@ -184,10 +187,10 @@ export default function Home() {
             <div className="w-12 h-12 mx-auto rounded-full border-2 border-sky-500 border-t-transparent animate-spin" />
             <div className="space-y-1">
               <h3 className="text-base font-semibold text-zinc-100">
-                Gemma 4 is reading the campus poster...
+                Gemma 4 is localizing 2D spatial coordinates...
               </h3>
               <p className="text-xs text-zinc-400 font-mono">
-                Multimodal extraction via Gemini API • Parsing typography and spatial layout
+                Multimodal bounding box calculation [ymin, xmin, ymax, xmax] via Gemini API
               </p>
             </div>
           </div>
@@ -207,31 +210,40 @@ export default function Home() {
           </div>
         )}
 
-        {/* Split Screen View (Source Poster vs Structured Gemma Intelligence) */}
+        {/* Split Screen View with Interactive Spatial Overlay */}
         {selectedImage && analysisResult && !isLoading && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-400">
                 <Layers className="w-4 h-4 text-sky-400" />
-                <span>Side-by-side Verification Matrix</span>
+                <span>Interactive Spatial Canvas + Grounded Extraction</span>
               </div>
-              <span className="text-xs text-zinc-400 font-mono">
-                Comparing original physical capture vs model extraction
-              </span>
+              <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
+                <Crosshair className="w-3.5 h-3.5 text-sky-400" />
+                <span>Hover or click any box on the photo to trigger actions</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-              {/* Left Column: Original Poster with Zoom */}
+              {/* Left Column: Interactive Poster with Hotspot Bounding Boxes */}
               <div className="h-full">
                 <SplitViewComparison
                   imageSrc={selectedImage}
                   hasUncertainties={analysisResult.uncertainties.length > 0}
+                  hotspots={analysisResult.hotspots}
+                  selectedHotspotId={selectedHotspot?.id || null}
+                  onSelectHotspot={setSelectedHotspot}
+                  eventDetails={analysisResult.eventDetails}
                 />
               </div>
 
-              {/* Right Column: Structured Extracted Knowledge */}
+              {/* Right Column: Structured Extracted Knowledge & Hotspot Navigator */}
               <div className="h-full">
-                <StructuredResultCard analysis={analysisResult} />
+                <StructuredResultCard
+                  analysis={analysisResult}
+                  selectedHotspotId={selectedHotspot?.id || null}
+                  onSelectHotspot={setSelectedHotspot}
+                />
               </div>
             </div>
           </div>
@@ -246,7 +258,7 @@ export default function Home() {
             <span>• Built for Hacktoberfest 2026 × MUJ</span>
           </div>
           <div className="flex items-center gap-4 text-zinc-400">
-            <span>Model: Google Gemma 4 (Gemini API)</span>
+            <span>Model: Google Gemma 4 Spatial Vision (Gemini API)</span>
             <span>•</span>
             <span>License: MIT</span>
             <span>•</span>

@@ -11,18 +11,25 @@ import {
   ListTodo,
   Info,
   HelpCircle,
-  Users
+  Users,
+  Crosshair
 } from 'lucide-react';
-import { AccessLensAnalysis } from '@/lib/types';
+import { AccessLensAnalysis, HotspotDetail } from '@/lib/types';
 import { ActionToolbar } from './ActionToolbar';
 import { ModelBadge } from './ModelBadge';
 
 interface StructuredResultCardProps {
   analysis: AccessLensAnalysis;
+  selectedHotspotId?: string | null;
+  onSelectHotspot?: (hotspot: HotspotDetail | null) => void;
 }
 
-export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ analysis }) => {
-  const { eventDetails, actionItems, uncertainties, keyTakeaways } = analysis;
+export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({
+  analysis,
+  selectedHotspotId,
+  onSelectHotspot
+}) => {
+  const { eventDetails, actionItems, uncertainties, keyTakeaways, hotspots } = analysis;
 
   return (
     <div className="flex flex-col h-full rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6 space-y-6 overflow-y-auto">
@@ -42,6 +49,40 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
           processingTimeMs={analysis.processingTimeMs}
         />
       </div>
+
+      {/* Spatial Hotspots Quick Navigator */}
+      {hotspots && hotspots.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <span className="flex items-center gap-1.5">
+              <Crosshair className="w-3.5 h-3.5 text-sky-400" />
+              Interactive Poster Hotspots ({hotspots.length})
+            </span>
+            <span className="text-[10px] text-zinc-500 font-mono">Click to focus on poster</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {hotspots.map((hs) => {
+              const isSelected = selectedHotspotId === hs.id;
+              return (
+                <button
+                  key={hs.id}
+                  type="button"
+                  onClick={() => onSelectHotspot && onSelectHotspot(isSelected ? null : hs)}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono transition-all border ${
+                    isSelected
+                      ? 'bg-sky-500 text-white border-sky-400 shadow-sm ring-1 ring-sky-300 font-bold'
+                      : 'bg-zinc-950 hover:bg-zinc-850 text-zinc-300 border-zinc-800'
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                  <span>{hs.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Plain Language Executive Summary */}
       <div className="p-4 rounded-lg bg-zinc-950/60 border border-zinc-800 space-y-2">
@@ -171,7 +212,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
         </div>
       )}
 
-      {/* Uncertainty & Cropped Text Handling (Key PRD Acceptance Criteria) */}
+      {/* Uncertainty & Cropped Text Handling */}
       {uncertainties && uncertainties.length > 0 ? (
         <div className="p-3.5 rounded-lg bg-amber-950/30 border border-amber-800/60 space-y-2 text-xs">
           <div className="flex items-center gap-1.5 text-amber-300 font-semibold">

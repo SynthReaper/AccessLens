@@ -13,7 +13,24 @@ test('SAMPLE_POSTERS catalog contains valid realistic fixtures', () => {
     assert(sample.cachedResult.eventDetails, 'Event details object must exist');
     assert(Array.isArray(sample.cachedResult.actionItems), 'actionItems must be an array');
     assert(Array.isArray(sample.cachedResult.uncertainties), 'uncertainties must be an array');
+    assert(Array.isArray(sample.cachedResult.hotspots), 'hotspots must be an array');
     assert(sample.cachedResult.modelUsed.includes('gemma'), 'Must explicitly attribute Gemma model');
+  }
+});
+
+test('Spatial 2D Box coordinates are normalized 0-1000 and well-formed', () => {
+  for (const sample of SAMPLE_POSTERS) {
+    assert(sample.cachedResult.hotspots.length > 0, `Sample ${sample.id} must have hotspots`);
+    for (const hs of sample.cachedResult.hotspots) {
+      assert(hs.id, 'Hotspot must have an id');
+      assert(hs.label, 'Hotspot must have a label');
+      assert(Array.isArray(hs.box2d) && hs.box2d.length === 4, 'Hotspot box2d must be a 4-tuple [ymin, xmin, ymax, xmax]');
+      const [ymin, xmin, ymax, xmax] = hs.box2d;
+      assert(ymin >= 0 && ymin <= 1000, `ymin must be 0-1000, got ${ymin}`);
+      assert(xmin >= 0 && xmin <= 1000, `xmin must be 0-1000, got ${xmin}`);
+      assert(ymax >= ymin && ymax <= 1000, `ymax must be >= ymin and <= 1000, got ${ymax}`);
+      assert(xmax >= xmin && xmax <= 1000, `xmax must be >= xmin and <= 1000, got ${xmax}`);
+    }
   }
 });
 
