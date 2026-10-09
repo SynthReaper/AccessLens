@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" width="800" height="1100">
+  <rect width="800" height="1100" fill="#f8fafc" />
+  
+  <!-- Official Header Stamp -->
+  <rect x="50" y="50" width="700" height="120" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="8" />
+  <circle cx="110" cy="110" r="35" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2" />
+  <text x="110" y="117" font-family="serif" font-size="28" font-weight="bold" fill="#334155" text-anchor="middle">MUJ</text>
+  
+  <text x="170" y="95" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#0f172a">CENTRAL LIBRARY NOTIFICATION SYSTEM</text>
+  <text x="170" y="122" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Ref: MUJ/LIB/CIRCULAR/2026/10-09 • Date: October 9, 2026</text>
+
+  <!-- Title Banner -->
+  <rect x="50" y="200" width="700" height="70" fill="#0284c7" rx="6" />
+  <text x="400" y="244" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    EXAM ACCESS &amp; OVERDUE BOOK CLEARANCE SCHEDULE
+  </text>
+
+  <!-- Body Content -->
+  <text x="70" y="320" font-family="system-ui, sans-serif" font-size="16" fill="#1e293b" font-weight="600">To All Enrolled Students &amp; Research Scholars:</text>
+  
+  <text x="70" y="360" font-family="system-ui, sans-serif" font-size="15" fill="#334155">
+    In view of the upcoming Mid-Term Examinations, the Central Library will operate under modified
+  </text>
+  <text x="70" y="385" font-family="system-ui, sans-serif" font-size="15" fill="#334155">
+    regulations starting October 15, 2026 until October 31, 2026.
+  </text>
+
+  <!-- Operating Hours Box -->
+  <rect x="70" y="420" width="660" height="160" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+  <text x="100" y="460" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a">REVISED OPERATING TIMINGS</text>
+  
+  <text x="100" y="500" font-family="system-ui, sans-serif" font-size="15" fill="#1e293b">• Ground &amp; 1st Floor Reading Halls:</text>
+  <text x="420" y="500" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#0369a1">24 Hours Open (Continuous)</text>
+  
+  <text x="100" y="535" font-family="system-ui, sans-serif" font-size="15" fill="#1e293b">• Book Issue / Return Desk:</text>
+  <text x="420" y="535" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#334155">09:00 AM – 10:00 PM</text>
+  
+  <text x="100" y="565" font-family="system-ui, sans-serif" font-size="13" fill="#64748b">(Overnight reading requires active campus smartcard swipe)</text>
+
+  <!-- Urgent Fine Waiver Section -->
+  <rect x="70" y="610" width="660" height="150" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5" rx="8" />
+  <text x="100" y="650" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#991b1b">MANDATORY OVERDUE BOOK CLEARANCE</text>
+  <text x="100" y="685" font-family="system-ui, sans-serif" font-size="15" fill="#7f1d1d">
+    All overdue textbook circulation fines will be 100% WAIVED if books are returned
+  </text>
+  <text x="100" y="715" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#b91c1c">
+    on or before: OCTOBER 14, 2026 (05:00 PM IST)
+  </text>
+  <text x="100" y="740" font-family="system-ui, sans-serif" font-size="14" fill="#991b1b">
+    Unreturned items beyond this deadline will trigger library card suspension for exam borrowing.
+  </text>
+
+  <!-- Discussion Pods -->
+  <rect x="70" y="790" width="660" height="100" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" rx="8" />
+  <text x="100" y="830" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155">Group Discussion Pod Bookings</text>
+  <text x="100" y="860" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">
+    Bookings open online via student portal 24 hours prior. Max 2-hour slot per group.
+  </text>
+
+  <!-- Maintenance Note with ambiguous detail -->
+  <rect x="70" y="910" width="660" height="60" fill="#fffbeb" stroke="#fde047" stroke-width="1" rx="6" />
+  <text x="90" y="945" font-family="system-ui, sans-serif" font-size="13" fill="#92400e">
+    Note: HVAC maintenance scheduled on alternating Saturdays during evening hours.
+  </text>
+
+  <!-- Signature -->
+  <text x="650" y="1030" font-family="Georgia, serif" font-size="15" font-weight="bold" fill="#334155" text-anchor="end">Dr. K. S. Sharma</text>
+  <text x="650" y="1055" font-family="system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="end">Chief Librarian, Central Library MUJ</text>
+</svg>

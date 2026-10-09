@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" width="800" height="1100">
+  <defs>
+    <linearGradient id="cyber-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="60%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1100" fill="url(#cyber-bg)" />
+
+  <text x="60" y="80" fill="#34d399" font-family="monospace" font-size="16" letter-spacing="4">[RECRUITMENT PROTOCOL // 2026-27]</text>
+  <text x="740" y="80" fill="#a7f3d0" font-family="monospace" font-size="14" text-anchor="end">MUJ INNOVATION LABS</text>
+
+  <text x="60" y="160" fill="#ffffff" font-family="system-ui, sans-serif" font-size="52" font-weight="900" letter-spacing="-1">
+    AEROCLUB MUJ
+  </text>
+  <text x="60" y="210" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="26" font-weight="700">
+    Drone Dynamics, Autonomous Flight &amp; Avionics
+  </text>
+
+  <rect x="60" y="240" width="680" height="4" fill="#10b981" />
+
+  <!-- Domains Box -->
+  <text x="60" y="290" fill="#f0fdf4" font-family="system-ui, sans-serif" font-size="20" font-weight="bold">OPEN ROLES &amp; DOMAINS</text>
+  
+  <rect x="60" y="320" width="320" height="100" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1" />
+  <text x="80" y="355" fill="#a7f3d0" font-family="monospace" font-size="13">DOMAIN 01</text>
+  <text x="80" y="385" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Firmware &amp; Flight Controls</text>
+  <text x="80" y="405" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="12">PX4 / ArduPilot / STM32</text>
+
+  <rect x="420" y="320" width="320" height="100" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1" />
+  <text x="440" y="355" fill="#a7f3d0" font-family="monospace" font-size="13">DOMAIN 02</text>
+  <text x="440" y="385" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Computer Vision &amp; SLAM</text>
+  <text x="440" y="405" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="12">ROS 2 / YOLO / Depth Mapping</text>
+
+  <rect x="60" y="440" width="320" height="100" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1" />
+  <text x="80" y="475" fill="#a7f3d0" font-family="monospace" font-size="13">DOMAIN 03</text>
+  <text x="80" y="505" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">CAD &amp; Airframe Design</text>
+  <text x="80" y="525" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="12">Fusion 360 / Carbon Fiber Fab</text>
+
+  <rect x="420" y="440" width="320" height="100" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1" />
+  <text x="440" y="475" fill="#a7f3d0" font-family="monospace" font-size="13">DOMAIN 04</text>
+  <text x="440" y="505" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Corporate Operations &amp; PR</text>
+  <text x="440" y="525" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="12">Sponsorships / Event Logistics</text>
+
+  <!-- Interview Schedule Card -->
+  <rect x="60" y="570" width="680" height="160" rx="12" fill="#022c22" stroke="#10b981" stroke-width="2" />
+  <text x="90" y="610" fill="#34d399" font-family="monospace" font-size="15" font-weight="bold">IN-PERSON AUDITIONS &amp; DEMOS</text>
+  
+  <text x="90" y="650" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold">Dates: October 16 &amp; 17, 2026 (4:30 PM – 8:00 PM)</text>
+  <text x="90" y="685" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="16">Venue: Robotics Hangar, Innovation Lab Basement, MUJ</text>
+  <text x="90" y="715" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="14">Bring laptop with prior projects (optional for 1st year beginners).</text>
+
+  <!-- Application Portal Box -->
+  <rect x="60" y="760" width="680" height="130" rx="12" fill="#14532d" stroke="#22c55e" stroke-width="1.5" />
+  <text x="90" y="800" fill="#86efac" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">MANDATORY REGISTRATION LINK</text>
+  <text x="90" y="835" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="bold">Apply Online: forms.gle/aeroclub-muj-2026</text>
+  <text x="90" y="865" fill="#bbf7d0" font-family="system-ui, sans-serif" font-size="15 font-weight="bold">Portal Closes: October 14, 2026 at 08:00 PM IST</text>
+
+  <!-- Note on slot scheduling -->
+  <rect x="60" y="910" width="680" height="80" rx="8" fill="#022c22" stroke="#047857" stroke-width="1" />
+  <text x="90" y="955" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="13">
+    *Individual audition slot tokens will be dispatched to registered emails after round 1 review.
+  </text>
+
+  <text x="400" y="1040" fill="#047857" font-family="monospace" font-size="12" text-anchor="middle">AEROMODELLING CLUB • MANIPAL UNIVERSITY JAIPUR • 2026</text>
+</svg>

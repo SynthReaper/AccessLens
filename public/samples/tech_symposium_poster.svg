@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" width="800" height="1100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1100" fill="url(#bg)" />
+
+  <!-- Header border line -->
+  <line x1="60" y1="90" x2="740" y2="90" stroke="#334155" stroke-width="2" />
+  
+  <text x="60" y="70" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="600" letter-spacing="3">MANIPAL UNIVERSITY JAIPUR • SCHOOL OF COMPUTING</text>
+  <text x="740" y="70" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="end">FALL 2026</text>
+
+  <!-- Title Section -->
+  <rect x="60" y="130" width="130" height="32" rx="6" fill="#1e293b" />
+  <text x="125" y="151" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">FLAGSHIP SUMMIT</text>
+
+  <text x="60" y="230" fill="#ffffff" font-family="system-ui, sans-serif" font-size="54" font-weight="800" letter-spacing="-1">TechNova 2026</text>
+  <text x="60" y="275" fill="url(#accent)" font-family="system-ui, sans-serif" font-size="28" font-weight="600">Multimodal Intelligence &amp; Autonomous Robotics</text>
+
+  <text x="60" y="325" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="16" width="680">
+    Join leading researchers, student innovators, and industry engineers for two days of hands-on
+  </text>
+  <text x="60" y="350" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="16">
+    workshops, live keynote sessions, and hackathon project exhibitions.
+  </text>
+
+  <!-- Big Info Cards Grid -->
+  <!-- Date Card -->
+  <rect x="60" y="400" width="320" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <text x="90" y="440" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" font-weight="600">DATE &amp; TIME</text>
+  <text x="90" y="480" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="22" font-weight="700">October 24–25, 2026</text>
+  <text x="90" y="512" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="15" font-weight="500">09:30 AM – 05:30 PM IST</text>
+
+  <!-- Venue Card -->
+  <rect x="420" y="400" width="320" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <text x="450" y="440" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" font-weight="600">CAMPUS VENUE</text>
+  <text x="450" y="480" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="22" font-weight="700">Turing Auditorium</text>
+  <text x="450" y="512" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="15">Academic Block 1, MUJ Campus</text>
+
+  <!-- Highlights Banner -->
+  <rect x="60" y="570" width="680" height="170" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1" />
+  <text x="90" y="615" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="18" font-weight="700">KEY TRACKS &amp; PRIZES</text>
+  
+  <circle cx="100" cy="650" r="4" fill="#38bdf8" />
+  <text x="120" y="655" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="15">Gemma 4 Multimodal Agent Track &amp; Edge Vision Demos</text>
+  
+  <circle cx="100" cy="685" r="4" fill="#38bdf8" />
+  <text x="120" y="690" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="15">Autonomous UAV Flight Challenge &amp; ROS2 Simulation</text>
+  
+  <circle cx="100" cy="720" r="4" fill="#38bdf8" />
+  <text x="120" y="725" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="15">Total Prize Pool: ₹75,000 + Google Cloud Credits</text>
+
+  <!-- Deadline & Action Box -->
+  <rect x="60" y="770" width="680" height="150" rx="12" fill="#450a0a" stroke="#dc2626" stroke-width="1.5" />
+  <text x="90" y="815" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="1">CRITICAL DEADLINE</text>
+  <text x="90" y="855" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="800">Project Abstract Submission: Oct 18, 2026 (11:59 PM)</text>
+  <text x="90" y="890" fill="#fecaca" font-family="system-ui, sans-serif" font-size="15">Register at: technova.muj.ac.in/register • Teams of 1–4 members</text>
+
+  <!-- Obscured/Unclear Corner Notice (Demonstrates uncertainty parsing) -->
+  <rect x="60" y="945" width="680" height="70" rx="8" fill="#18181b" />
+  <text x="90" y="985" fill="#71717a" font-family="system-ui, sans-serif" font-size="13">Notice: Valid student ID mandatory. [Lunch coupons issued at...</text>
+  <text x="440" y="985" fill="#52525b" font-family="system-ui, sans-serif" font-size="13" font-style="italic">[cropped: corner torn]</text>
+
+  <!-- Footer -->
+  <text x="400" y="1060" fill="#475569" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Official Student Chapter Notice • For inquiries: technova@muj.ac.in</text>
+</svg>
