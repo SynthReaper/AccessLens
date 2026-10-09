@@ -3,7 +3,13 @@
 import React, { useState } from 'react';
 import {
   RefreshCw,
-  GitBranch
+  GitBranch,
+  Sparkles,
+  Cpu,
+  Layers,
+  ExternalLink,
+  FileText,
+  CheckCircle2
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
 import { SplitViewComparison } from '@/components/SplitViewComparison';
@@ -80,34 +86,37 @@ export default function Home() {
     <div className="min-h-screen bg-[#fff8f5] text-[#1e1b19] flex flex-col font-serif bg-newsprint">
       {/* Top Zine Header with Tape Ticker */}
       <header className="sticky top-0 z-50 bg-[#faf2ee]/95 backdrop-blur-md border-b-2 border-[#1e1b19] shadow-press-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-3.5 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 sm:gap-4">
           {/* Brand & Edition */}
           <div className="flex items-center gap-3">
-            <AccessLensLogo size={36} className="rotate-[-2deg]" />
+            <AccessLensLogo size={40} className="shrink-0 -rotate-2" />
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-display font-extrabold text-lg text-[#1e1b19] tracking-tight">
+                <span className="font-display font-extrabold text-xl text-[#1e1b19] tracking-tight whitespace-nowrap">
                   AccessLens
                 </span>
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#c8ecca] text-[#03210c] border border-[#46664b] font-bold rotate-1">
-                  ZINE v1.0
+                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#c8ecca] text-[#03210c] border border-[#46664b] font-bold rotate-1 whitespace-nowrap shadow-press-xs">
+                  AUTUMN &apos;26
                 </span>
               </div>
-              <p className="font-mono text-[10px] text-[#594139] hidden sm:block">
+              <p className="font-mono text-[11px] text-[#594139] whitespace-nowrap hidden sm:block">
                 Campus Notice Workbench • Google Gemma 4 Spatial Vision
               </p>
             </div>
           </div>
 
           {/* Quick Tape Selector */}
-          <div className="hidden lg:flex items-center gap-2 font-mono text-xs">
-            <span className="text-[#a73400] font-bold">📌 Sample Tapes:</span>
+          <div className="hidden lg:flex items-center gap-2 font-mono text-xs overflow-x-auto py-0.5">
+            <span className="text-[#a73400] font-bold whitespace-nowrap shrink-0 flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-[#cb4914]" />
+              Sample Tapes:
+            </span>
             {SAMPLE_POSTERS.map((s, i) => (
               <button
                 key={s.id}
                 type="button"
                 onClick={() => handleSelectDirectSample(s)}
-                className={`px-3 py-1 rounded text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                   i === 0
                     ? 'washi-tape-tertiary text-[#2a1800] -rotate-1 hover:rotate-0'
                     : i === 1
@@ -121,22 +130,22 @@ export default function Home() {
           </div>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-2 font-mono text-xs">
+          <div className="flex items-center gap-2 font-mono text-xs shrink-0">
             <a
               href="https://github.com/accesslens/accesslens"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#ffffff] hover:bg-[#faf2ee] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ffffff] hover:bg-[#faf2ee] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
               <GitBranch className="w-3.5 h-3.5 text-[#a73400]" />
-              <span className="hidden sm:inline">Public Repo</span>
+              <span>Public Repo</span>
             </a>
 
             {selectedImage && (
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>New Notice</span>
@@ -301,18 +310,159 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer Strip */}
-      <footer className="border-t-2 border-[#1e1b19] bg-[#faf2ee] py-5 mt-10 font-mono text-xs text-[#594139]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-[#1e1b19]">AccessLens</span>
-            <span>•</span>
-            <span>Warm Autumn Zine Edition</span>
-            <span>•</span>
-            <span>Hacktoberfest 2026 × MUJ</span>
+      {/* Editorial Zine Colophon & System Directory */}
+      <footer className="border-t-2 border-[#1e1b19] bg-[#f7efe9] mt-16 font-mono text-xs text-[#594139] relative overflow-hidden">
+        {/* Subtle decorative top border washi strip */}
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#cb4914] via-[#3d8346] via-[#dca54c] to-[#cb4914] border-b border-[#1e1b19]/40" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+          {/* Masthead banner */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 mb-8 border-b-2 border-[#1e1b19]/20 gap-4">
+            <div className="flex items-center gap-3.5">
+              <AccessLensLogo size={44} className="shrink-0 -rotate-2" />
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-display font-extrabold text-xl text-[#1e1b19] tracking-tight">
+                    AccessLens
+                  </h3>
+                  <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#c8ecca] text-[#03210c] border border-[#46664b] font-bold">
+                    COLOPHON v1.0
+                  </span>
+                </div>
+                <p className="font-mono text-[11px] text-[#594139] mt-0.5">
+                  Autonomous Campus Notice Intelligence • Hacktoberfest 2026 × Manipal University Jaipur
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#ffffff] border-2 border-[#1e1b19] rounded font-bold shadow-press-xs text-[#03210c] text-[11px]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#3d8346]" />
+                All Engines Grounded
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#fff2ec] border-2 border-[#1e1b19] rounded font-bold shadow-press-xs text-[#a73400] text-[11px]">
+                <Cpu className="w-3.5 h-3.5 text-[#cb4914]" />
+                Gemma 4 Vision
+              </span>
+            </div>
           </div>
-          <div>
-            <span>Powered by Google Gemma 4 (Gemini API) • Open-Source MIT License</span>
+
+          {/* 4-Column Directory Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10">
+            {/* Column 1: Architecture & Purpose */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-[#1e1b19] font-bold text-xs uppercase tracking-wider border-b border-[#1e1b19]/20 pb-1.5">
+                <Layers className="w-3.5 h-3.5 text-[#cb4914]" />
+                Notice Architecture
+              </div>
+              <p className="font-serif text-[13px] leading-relaxed text-[#433633]">
+                AccessLens bridges physical paper noticeboards and student digital workflows. Point a phone camera at any wrinkled, skewed, or crowded flyer to generate verified calendar invites, map coordinates, and instant broadcast digests.
+              </p>
+              <div className="pt-1 text-[11px] text-[#785b52]">
+                <p className="font-bold text-[#1e1b19]">Manipal University Jaipur</p>
+                <p>Dept. of Computer Science & Engineering</p>
+                <p>Dehmi Kalan, Jaipur, RJ 303007</p>
+              </div>
+            </div>
+
+            {/* Column 2: Multimodal Spatial Telemetry */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-[#1e1b19] font-bold text-xs uppercase tracking-wider border-b border-[#1e1b19]/20 pb-1.5">
+                <Cpu className="w-3.5 h-3.5 text-[#3d8346]" />
+                Spatial Telemetry
+              </div>
+              <ul className="space-y-2 text-[11px] text-[#433633]">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#3d8346] font-bold">✓</span>
+                  <span><strong>Vision Model:</strong> Google Gemma 4 via Gemini API with tier-fallback resilience.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#3d8346] font-bold">✓</span>
+                  <span><strong>2D Bounding Boxes:</strong> [ymin, xmin, ymax, xmax] mapped on 0–1000 coordinate scale.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#3d8346] font-bold">✓</span>
+                  <span><strong>Grounded Extraction:</strong> Pure evidence-backed extraction. Never hallucinate missing dates or fees.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#3d8346] font-bold">✓</span>
+                  <span><strong>Inference SLA:</strong> Sub-3.5s warm pass with zero-latency cached sample fallbacks.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Standards & Open Protocols */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-[#1e1b19] font-bold text-xs uppercase tracking-wider border-b border-[#1e1b19]/20 pb-1.5">
+                <FileText className="w-3.5 h-3.5 text-[#dca54c]" />
+                Export Protocols
+              </div>
+              <ul className="space-y-2 text-[11px] text-[#433633]">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#dca54c] font-bold">●</span>
+                  <span><strong>RFC 5545 iCalendar:</strong> Direct export for Apple Calendar, Google Calendar & Outlook.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#dca54c] font-bold">●</span>
+                  <span><strong>Markdown Briefing:</strong> One-click copy for Notion boards, Obsidian vaults & club repos.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#dca54c] font-bold">●</span>
+                  <span><strong>WhatsApp Broadcast:</strong> Pre-formatted WhatsApp text for student CRs and batch groups.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#dca54c] font-bold">●</span>
+                  <span><strong>Tactile Pin System:</strong> Interactive SVG overlays synced between canvas & digest.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 4: Hackathon Tracks & Repository */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-[#1e1b19] font-bold text-xs uppercase tracking-wider border-b border-[#1e1b19]/20 pb-1.5">
+                <GitBranch className="w-3.5 h-3.5 text-[#cb4914]" />
+                Open-Source Tracks
+              </div>
+              <div className="space-y-2">
+                <div className="p-2.5 bg-white border border-[#1e1b19] rounded shadow-press-xs">
+                  <p className="font-bold text-[#1e1b19] text-[11px]">Track 1: Best Use of Gemma 4</p>
+                  <p className="text-[10px] text-[#594139]">Multimodal spatial extraction & bounding-box grounding</p>
+                </div>
+                <div className="p-2.5 bg-white border border-[#1e1b19] rounded shadow-press-xs">
+                  <p className="font-bold text-[#1e1b19] text-[11px]">Track 2: Best Open-Source AI Project</p>
+                  <p className="text-[10px] text-[#594139]">MIT Licensed • Zero AI-slop • Real campus impact</p>
+                </div>
+              </div>
+              <div className="pt-1 flex flex-col gap-1 text-[11px]">
+                <a
+                  href="https://github.com/accesslens/accesslens"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#cb4914] hover:underline inline-flex items-center gap-1"
+                >
+                  GitHub Repository <ExternalLink className="w-3 h-3" />
+                </a>
+                <span className="text-[#785b52]">License: MIT Open Source</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Riso Stamp & Copyright */}
+          <div className="pt-6 border-t-2 border-[#1e1b19] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2 py-0.5 bg-[#cb4914] text-white font-bold rounded shadow-press-xs text-[10px] uppercase">
+                🍁 ZERO AI SLOP
+              </span>
+              <span className="text-[#1e1b19] font-bold">AccessLens Notice Workbench</span>
+              <span>•</span>
+              <span className="text-[#594139]">Handcrafted with tactile newsprint & risograph typography</span>
+            </div>
+
+            <div className="text-[#785b52] font-mono text-[10px] flex items-center gap-2">
+              <span>MUJ INNOVATION LABS</span>
+              <span>•</span>
+              <span>OCTOBER 2026</span>
+            </div>
           </div>
         </div>
       </footer>

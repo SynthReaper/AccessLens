@@ -49,11 +49,14 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
     <div className="relative flex flex-col rounded-xl border-2 border-[#1e1b19] bg-[#f4ece8] shadow-press-lg overflow-hidden">
       {/* Zine Canvas Utility Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b-2 border-[#1e1b19] bg-[#faf2ee] text-xs">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#a73400] inline-block animate-pulse" />
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="w-4 h-4 pushpin-primary shrink-0" />
           <span className="font-display font-bold text-sm text-[#1e1b19]">Notice Bulletin Board</span>
           <span className="font-mono text-[10px] px-2 py-0.5 rounded washi-tape-tertiary text-[#2a1800] border border-[#1e1b19] font-bold shadow-press-sm -rotate-1">
             FOLIO #08
+          </span>
+          <span className="font-mono text-[10px] px-2 py-0.5 rounded washi-tape-primary text-[#390c00] border border-[#1e1b19] font-bold shadow-press-sm rotate-1">
+            🍁 PINNED FLYER
           </span>
           {hasUncertainties && (
             <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#ffddb6] text-[#2a1800] border border-[#805200] font-bold rotate-1">
@@ -110,31 +113,25 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
               <RotateCcw className="w-3 h-3" />
             </button>
           </div>
+          <div className="w-4 h-4 pushpin-secondary shrink-0 hidden sm:block ml-1" />
         </div>
       </div>
 
       {/* Pinned Poster Board (Heavy Newsprint Canvas) */}
-      <div className="relative flex-1 min-h-[580px] max-h-[760px] overflow-auto flex items-center justify-center p-4 sm:p-6 bg-[#fff8f5] bg-newsprint">
-        {/* Pushpins in corners */}
-        <div className="absolute top-3 left-3 pushpin-primary z-20" />
-        <div className="absolute top-3 right-3 pushpin-secondary z-20" />
-
+      <div className="relative flex-1 min-h-[580px] max-h-[760px] overflow-auto flex items-center justify-center p-6 sm:p-8 bg-[#fff8f5] bg-newsprint">
         <div
           style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
-          className="relative transition-transform duration-150 inline-block max-w-full my-4"
+          className="relative transition-transform duration-150 inline-block max-w-full my-3"
         >
-          {/* Pinned adhesive tape on top of the physical notice flyer */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 washi-tape-primary border-2 border-[#1e1b19] rounded-xs shadow-press-sm z-30 pointer-events-none rotate-1 whitespace-nowrap">
-            <span className="font-mono text-[9px] text-[#390c00] font-bold uppercase tracking-wider">
-              PINNED CAMPUS FLYER
-            </span>
-          </div>
+          {/* Diagonal Corner Washi Tapes Fastening the Flyer to Corkboard */}
+          <div className="absolute -top-2.5 -left-2.5 w-10 h-3.5 washi-tape-primary border border-[#1e1b19] -rotate-45 shadow-press-sm z-30 pointer-events-none" />
+          <div className="absolute -top-2.5 -right-2.5 w-10 h-3.5 washi-tape-secondary border border-[#1e1b19] rotate-45 shadow-press-sm z-30 pointer-events-none" />
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt="Source Campus Poster"
-            className="w-full max-w-[540px] h-auto rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white"
+            className="w-auto h-auto max-w-full max-h-[640px] rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white mx-auto"
           />
 
           {/* 2D Hotspot Overlays */}
