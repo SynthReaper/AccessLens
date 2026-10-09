@@ -8,6 +8,7 @@ import {
 import { ImageUploader } from '@/components/ImageUploader';
 import { SplitViewComparison } from '@/components/SplitViewComparison';
 import { StructuredResultCard } from '@/components/StructuredResultCard';
+import { AccessLensLogo } from '@/components/AccessLensLogo';
 import { AccessLensAnalysis, SamplePoster, HotspotDetail } from '@/lib/types';
 import { SAMPLE_POSTERS } from '@/lib/sample-data';
 
@@ -82,9 +83,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           {/* Brand & Edition */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#a73400] text-white flex items-center justify-center font-display font-black text-lg border-2 border-[#1e1b19] shadow-press-sm rotate-[-2deg]">
-              AL
-            </div>
+            <AccessLensLogo size={36} className="rotate-[-2deg]" />
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-display font-extrabold text-lg text-[#1e1b19] tracking-tight">
