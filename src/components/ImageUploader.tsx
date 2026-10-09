@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { Upload, Camera, Image as ImageIcon, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Camera, ArrowUpRight, FolderOpen, FileText } from 'lucide-react';
 import { SAMPLE_POSTERS } from '@/lib/sample-data';
 import { SamplePoster } from '@/lib/types';
 
@@ -56,7 +56,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Upload Zone */}
+      {/* Precision Drop & Capture Deck */}
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -65,10 +65,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         onDragLeave={() => setDragActive(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`relative border-2 border-dashed rounded-xl p-8 sm:p-10 text-center transition-all cursor-pointer select-none ${
+        className={`group relative border transition-all cursor-pointer bg-[#0e1017] p-8 text-left ${
           dragActive
-            ? 'border-sky-500 bg-sky-950/20 shadow-lg shadow-sky-950/30'
-            : 'border-zinc-800 hover:border-zinc-700 bg-zinc-900/60 hover:bg-zinc-900'
+            ? 'border-[#f97316] ring-1 ring-[#f97316] bg-[#141724]'
+            : 'border-[#1e2230] hover:border-[#38bdf8]/60 hover:bg-[#121520]'
         }`}
       >
         <input
@@ -84,74 +84,103 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
           }}
         />
 
-        <div className="max-w-md mx-auto space-y-3">
-          <div className="w-14 h-14 mx-auto rounded-full bg-zinc-800/80 border border-zinc-700 flex items-center justify-center text-sky-400 group-hover:scale-105 transition-transform">
-            <Upload className="w-6 h-6" />
-          </div>
+        {/* Technical Corner Brackets */}
+        <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#38bdf8]" />
+        <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#38bdf8]" />
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#38bdf8]" />
+        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#38bdf8]" />
 
-          <div className="space-y-1">
-            <h3 className="text-base font-semibold text-zinc-100">
-              Drop your campus notice photo here, or browse
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-[#f97316] tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 bg-[#f97316]" />
+              <span>Input Stage • Camera or High-Res Scan</span>
+            </div>
+            <h3 className="text-xl font-bold tracking-tight text-white">
+              Drop poster photograph, or select file
             </h3>
-            <p className="text-sm text-zinc-400">
-              Supports posters, whiteboard notices, flyers, and circulars (PNG, JPG, WEBP)
+            <p className="text-xs text-[#94a3b8] max-w-lg leading-relaxed">
+              Accepts campus circulars, classroom flyers, and bulletin photos (JPG, PNG, SVG, WEBP).
+              Model resolves spatial bounding boxes and extracts logistics automatically.
             </p>
           </div>
 
-          <div className="pt-2 flex items-center justify-center gap-3 text-xs text-zinc-400">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-800/80 border border-zinc-700">
-              <Camera className="w-3.5 h-3.5 text-zinc-300" /> Mobile Camera Supported
-            </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-800/80 border border-zinc-700">
-              <Sparkles className="w-3.5 h-3.5 text-sky-400" /> Gemma 4 Vision
-            </span>
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#181c28] hover:bg-[#202636] border border-[#2a3147] text-xs font-mono text-[#f8fafc] transition-colors"
+            >
+              <FolderOpen className="w-4 h-4 text-[#38bdf8]" />
+              <span>Browse File</span>
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#f97316] hover:bg-[#ea580c] text-black text-xs font-mono font-bold transition-colors"
+            >
+              <Camera className="w-4 h-4" />
+              <span>Camera</span>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Preset Campus Samples */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs font-semibold tracking-wider text-zinc-400 uppercase">
-          <span className="flex items-center gap-1.5">
-            <ImageIcon className="w-3.5 h-3.5 text-sky-400" />
-            Try instant campus test posters
-          </span>
-          <span className="text-[11px] text-zinc-400 font-mono">1-Click Test</span>
+      {/* Structured Benchmark Presets */}
+      <div className="border border-[#1e2230] bg-[#0e1017]">
+        <div className="px-4 py-2.5 border-b border-[#1e2230] flex items-center justify-between bg-[#121520]">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#94a3b8]">
+            <FileText className="w-3.5 h-3.5 text-[#38bdf8]" />
+            <span className="font-semibold text-white">VERIFIED CAMPUS NOTICE FIXTURES</span>
+            <span className="text-[#64748b]">• Click to load instant spatial benchmarks</span>
+          </div>
+          <span className="text-[10px] font-mono text-[#f97316]">3 PRE-LOADED SAMPLES</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {SAMPLE_POSTERS.map((sample) => {
+        <div className="divide-y divide-[#1e2230]">
+          {SAMPLE_POSTERS.map((sample, idx) => {
             const isSelected = selectedSampleId === sample.id;
             return (
-              <button
+              <div
                 key={sample.id}
-                type="button"
-                disabled={isLoading}
                 onClick={() => handleSelectSample(sample)}
-                className={`text-left p-3.5 rounded-lg border transition-all text-sm flex flex-col justify-between ${
+                className={`p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer transition-colors ${
                   isSelected
-                    ? 'border-sky-500 bg-sky-950/30 text-zinc-100 ring-1 ring-sky-500'
-                    : 'border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-850 hover:border-zinc-700 text-zinc-300'
+                    ? 'bg-[#181c2b] border-l-2 border-l-[#f97316]'
+                    : 'hover:bg-[#131622]'
                 }`}
               >
-                <div>
-                  <div className="flex items-start justify-between gap-1 mb-1.5">
-                    <span className="font-semibold text-zinc-100 text-xs leading-snug">
-                      {sample.title}
-                    </span>
-                    {isSelected && (
-                      <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-                    )}
+                <div className="flex items-start gap-4">
+                  <span className="font-mono text-xs text-[#64748b] mt-0.5">
+                    0{idx + 1}
+                  </span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-sm text-white">
+                        {sample.title}
+                      </span>
+                      <span className="text-[10px] font-mono uppercase px-1.5 py-0.2 rounded bg-[#1e2230] text-[#94a3b8]">
+                        {sample.category.replace('_', ' ')}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#94a3b8] mt-1 leading-relaxed">
+                      {sample.description}
+                    </p>
                   </div>
-                  <p className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed">
-                    {sample.subtitle}
-                  </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-zinc-800/60 flex items-center justify-between text-[10px] text-zinc-400">
-                  <span className="capitalize">{sample.category.replace('_', ' ')}</span>
-                  <span className="text-sky-400 font-mono">Run analysis →</span>
+
+                <div className="flex items-center gap-4 shrink-0 font-mono text-xs">
+                  <span className="text-[#64748b]">
+                    {sample.cachedResult.hotspots.length} Hotspots
+                  </span>
+                  <button
+                    type="button"
+                    disabled={isLoading}
+                    className="inline-flex items-center gap-1 text-[#38bdf8] hover:text-white font-semibold"
+                  >
+                    <span>Run Evaluation</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
