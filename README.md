@@ -8,6 +8,7 @@
 > **One-Line Pitch:** Take a photo of a campus notice, flyer, or event poster; **AccessLens** turns it into structured, verifiable, action-ready intelligence using Google **Gemma 4**'s multimodal vision capabilities through the Gemini API.
 
 Built for **Hacktoberfest 2026 × MUJ**:
+
 - 🎯 **Challenge 1:** Best Use of Gemma 4 (Multimodal image-to-action reasoning)
 - 🎯 **Challenge 2:** Best Open-Source AI Project (Public repository, issue-driven development, CI pipeline)
 
@@ -16,11 +17,13 @@ Built for **Hacktoberfest 2026 × MUJ**:
 ## 🌟 Why AccessLens?
 
 Students frequently encounter crucial campus information pinned to physical noticeboards, taped to elevator doors, or shared as compressed photos on WhatsApp:
+
 - Event dates, room shifts, audition cutoffs, fee deadlines, library hour adjustments.
 - These notices are often cluttered, poorly lit, or have torn corners.
 - Students miss deadlines because extracting "What do I actually need to do?" requires deciphering paragraphs of fine print.
 
 **AccessLens** solves this with **Gemma 4's multimodal understanding**:
+
 1. **Plain-Language Summary:** Injects clarity before students get overwhelmed by fine print.
 2. **Confirmed Logistics:** Cleanly isolates Title, Venue, Date, Time, Organizer, and Registration link.
 3. **Action Items & Deadlines:** Extracts only the concrete actions students must take.
@@ -67,11 +70,13 @@ graph LR
 ## 🚀 Quickstart & Setup
 
 ### Prerequisites
+
 - Node.js 20+ (tested on Node 20 & 24)
 - npm 10+
 - (Optional) Google Gemini API Key with Gemma access from [Google AI Studio](https://aistudio.google.com/)
 
 ### 1. Clone & Install
+
 ```bash
 git clone https://github.com/SynthReaper/AccessLens.git
 cd accesslens
@@ -79,27 +84,34 @@ npm install
 ```
 
 ### 2. Configure Environment
+
 Copy the `.env.example` file to `.env.local`:
+
 ```bash
 cp .env.example .env.local
 ```
 
 Add your Gemini API key in `.env.local`:
+
 ```env
 GEMINI_API_KEY=your_actual_key_here
 GEMMA_PRIMARY_MODEL=gemma-4-31b-it
 GEMMA_FALLBACK_MODEL=gemma-3-27b-it
 ENABLE_DEMO_FALLBACKS=true
 ```
+
 *(Note: If no key is set, AccessLens automatically runs in resilient demo mode with instant verified campus test samples).*
 
 ### 3. Run Development Server
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### 4. Run Automated Tests & Linter
+
 ```bash
 # Run unit tests (RFC 5545 calendar & schema fixtures)
 npm test
@@ -116,6 +128,7 @@ npm run build
 ## 📋 Open-Source Compliance & GitHub History
 
 AccessLens is developed transparently according to Hacktoberfest × MUJ guidelines:
+
 - **MIT License:** Included in [`LICENSE`](./LICENSE).
 - **Issue #1 (Team Registration):** Full registration log documented in [`docs/ISSUES_AND_PRS.md`](./docs/ISSUES_AND_PRS.md).
 - **Issue Tracking:** Issues `#2` through `#6` track multimodal API, mobile camera, split view, calendar export, and CI/CD.
@@ -124,5 +137,6 @@ AccessLens is developed transparently according to Hacktoberfest × MUJ guidelin
 ---
 
 ## 👥 Authors
-- **Aditya S.** — Manipal University Jaipur (Lead Architect)
+
+- **Aditya Goyal ( SynthReaper )** — Manipal University Jaipur
 - Built for **Hacktoberfest 2026 × MUJ** (October 2026).

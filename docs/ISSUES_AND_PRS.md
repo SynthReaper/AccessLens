@@ -1,4 +1,5 @@
 # Open-Source Development History & Issue Trail
+
 **Hacktoberfest 2026 × MUJ — AccessLens Public Issue & PR Record**
 
 This document provides a verifiable record of the public issue-driven development workflow required by the Hacktoberfest 2026 × MUJ evaluation rubric.
@@ -6,13 +7,15 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #1: Team Registration (Mandatory First Issue)
+
 - **Title:** `Team Registration: AccessLens`
 - **Labels:** `team-registration`, `hacktoberfest2026-muj`
 - **Status:** Closed (Registered on October 10, 2026)
 - **Content:**
+
   ```markdown
   ### Team Name: AccessLens
-  - Lead Developer: Aditya S.
+  - Lead Developer: Aditya Goyal
   - College: Manipal University Jaipur (MUJ)
   - Registered Challenge: Challenge 1 (Best Use of Gemma 4) & Challenge 2 (Best Open-Source AI Project)
   - Project Scope: Campus notice & event poster parsing powered by Google Gemma 4 multimodal via Gemini API.
@@ -21,6 +24,7 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #2: Gemma 4 Multimodal API Route & Robust Schema Normalization
+
 - **Title:** `feat: Gemma 4 multimodal API route & schema enforcement`
 - **Branch:** `feat/gemma-multimodal-api`
 - **PR:** `#7 feat: implement @google/genai Gemma 4 & 3 client with fallback architecture`
@@ -35,6 +39,7 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #3: Mobile Image Capture, Drag-and-Drop & Campus Sample Library
+
 - **Title:** `feat: accessible image upload, camera capture & sample library`
 - **Branch:** `feat/image-uploader`
 - **PR:** `#8 feat: camera capture, SVG test fixtures, and drag-and-drop input`
@@ -47,6 +52,7 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #4: Side-by-Side Split View Verification & Uncertainty Handling
+
 - **Title:** `feat: split-view verification UI & uncertainty detection cards`
 - **Branch:** `feat/verification-split-view`
 - **PR:** `#9 feat: side-by-side verification canvas and uncertainty badges`
@@ -60,6 +66,7 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #5: Action Toolbar with One-Click Calendar (.ics) Export & WhatsApp Sharing
+
 - **Title:** `feat: calendar (.ics) generation & instant share actions`
 - **Branch:** `feat/action-export-toolbar`
 - **PR:** `#10 feat: RFC 5545 iCalendar generation and group sharing`
@@ -73,6 +80,7 @@ This document provides a verifiable record of the public issue-driven developmen
 ---
 
 ## 📌 Issue #6: Automated GitHub Actions CI/CD Pipeline
+
 - **Title:** `ci: automated lint, unit test, and Next.js build verification`
 - **Branch:** `chore/ci-pipeline`
 - **PR:** `#11 chore: configure GitHub Actions workflow for lint and build`
