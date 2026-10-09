@@ -8,7 +8,7 @@ import {
   Copy,
   AlertTriangle,
   Check,
-  Crosshair
+  Tag
 } from 'lucide-react';
 import { HotspotDetail, Box2D } from '@/lib/types';
 
@@ -29,33 +29,38 @@ export const HotspotOverlayLayer: React.FC<HotspotOverlayLayerProps> = ({
 }) => {
   return (
     <div className="absolute inset-0 pointer-events-none">
-      {hotspots.map((hs) => {
+      {hotspots.map((hs, idx) => {
         const [ymin, xmin, ymax, xmax]: Box2D = hs.box2d;
         const top = `${ymin / 10}%`;
         const left = `${xmin / 10}%`;
-        const height = `${Math.max(2.5, (ymax - ymin) / 10)}%`;
-        const width = `${Math.max(4.5, (xmax - xmin) / 10)}%`;
+        const height = `${Math.max(3, (ymax - ymin) / 10)}%`;
+        const width = `${Math.max(5, (xmax - xmin) / 10)}%`;
 
         const isSelected = selectedHotspotId === hs.id;
         const isHovered = hoveredHotspotId === hs.id;
         const isInspection = hs.actionType === 'inspect';
 
-        // Intentional typographic & border palette without neon glow slop
-        let borderClass = 'border-sky-400/90 bg-sky-500/10 text-sky-200';
-        let badgeBg = 'bg-sky-600 text-white';
+        // Warm Autumn Zine Highlighter Palette
+        let borderClass = 'border-[#a73400] bg-[#ffdbcf]/30 text-[#390c00]';
+        let badgeBg = 'bg-[#a73400] text-white';
+        let rotation = idx % 2 === 0 ? '-rotate-1' : 'rotate-1';
 
         if (isInspection) {
-          borderClass = 'border-amber-400/90 bg-amber-500/15 text-amber-200 border-dashed';
-          badgeBg = 'bg-amber-600 text-white';
+          borderClass = 'border-[#805200] border-dashed bg-[#ffddb6]/35 text-[#2a1800]';
+          badgeBg = 'bg-[#805200] text-white';
+          rotation = 'rotate-2';
         } else if (hs.actionType === 'calendar') {
-          borderClass = 'border-emerald-400/90 bg-emerald-500/10 text-emerald-200';
-          badgeBg = 'bg-emerald-600 text-white';
+          borderClass = 'border-[#46664b] bg-[#c8ecca]/30 text-[#03210c]';
+          badgeBg = 'bg-[#46664b] text-white';
+          rotation = '-rotate-1';
         } else if (hs.actionType === 'map') {
-          borderClass = 'border-violet-400/90 bg-violet-500/10 text-violet-200';
-          badgeBg = 'bg-violet-600 text-white';
+          borderClass = 'border-[#46664b] bg-[#c8ecca]/30 text-[#03210c]';
+          badgeBg = 'bg-[#46664b] text-white';
+          rotation = 'rotate-1';
         } else if (hs.actionType === 'link') {
-          borderClass = 'border-cyan-400/90 bg-cyan-500/10 text-cyan-200';
-          badgeBg = 'bg-cyan-600 text-white';
+          borderClass = 'border-[#a73400] bg-[#ffdbcf]/30 text-[#390c00]';
+          badgeBg = 'bg-[#a73400] text-white';
+          rotation = '-rotate-2';
         }
 
         return (
@@ -68,33 +73,25 @@ export const HotspotOverlayLayer: React.FC<HotspotOverlayLayerProps> = ({
             onMouseEnter={() => onHoverHotspot(hs.id)}
             onMouseLeave={() => onHoverHotspot(null)}
             style={{ top, left, width, height }}
-            className={`absolute pointer-events-auto cursor-pointer rounded-sm transition-all duration-150 border-[1.5px] ${borderClass} ${
+            className={`absolute pointer-events-auto cursor-pointer rounded-xs transition-all duration-150 border-2 ${borderClass} ${
               isSelected
-                ? 'ring-2 ring-white z-30 scale-[1.01]'
+                ? 'ring-2 ring-[#1e1b19] z-30 scale-[1.02] shadow-press'
                 : isHovered
-                ? 'z-20 scale-[1.005] brightness-110'
-                : 'z-10 opacity-85 hover:opacity-100'
+                ? 'z-20 scale-[1.01] shadow-press-sm'
+                : 'z-10 opacity-90 hover:opacity-100'
             }`}
           >
-            {/* Tag Badge */}
+            {/* Hand-marked Zine Tag Chip */}
             <div
-              className={`absolute -top-5 left-0 px-1.5 py-0.5 rounded-[3px] text-[9.5px] font-mono font-medium tracking-tight whitespace-nowrap shadow flex items-center gap-1 ${badgeBg} ${
-                isSelected ? 'scale-105' : ''
-              }`}
+              className={`absolute -top-5 left-2 px-2 py-0.5 rounded-xs font-mono text-[10px] font-bold tracking-tight shadow-press-sm flex items-center gap-1 ${badgeBg} ${rotation}`}
             >
               {hs.actionType === 'calendar' && <Calendar className="w-2.5 h-2.5" />}
               {hs.actionType === 'map' && <MapPin className="w-2.5 h-2.5" />}
               {hs.actionType === 'link' && <ExternalLink className="w-2.5 h-2.5" />}
               {hs.actionType === 'inspect' && <AlertTriangle className="w-2.5 h-2.5" />}
-              {hs.actionType === 'copy' && <Copy className="w-2.5 h-2.5" />}
+              {hs.actionType === 'copy' && <Tag className="w-2.5 h-2.5" />}
               <span>{hs.label}</span>
             </div>
-
-            {/* Corner Crosshair Anchors */}
-            <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t-[1.5px] border-l-[1.5px] border-white" />
-            <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t-[1.5px] border-r-[1.5px] border-white" />
-            <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b-[1.5px] border-l-[1.5px] border-white" />
-            <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-[1.5px] border-r-[1.5px] border-white" />
           </div>
         );
       })}
@@ -122,52 +119,55 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
   };
 
   return (
-    <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-3 sm:w-84 z-40 bg-[#161922] border border-[#252a38] rounded-lg p-3.5 shadow-2xl space-y-2.5 backdrop-blur-md">
-      <div className="flex items-start justify-between gap-2 border-b border-[#252a38] pb-2">
-        <div className="flex items-center gap-1.5">
-          <Crosshair className="w-3.5 h-3.5 text-sky-400" />
-          <span className="text-xs font-semibold text-zinc-100">{hotspot.label}</span>
-          <span className="text-[10px] font-mono text-zinc-400 capitalize">({hotspot.actionType})</span>
+    <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 z-40 bg-[#faf2ee] border-2 border-[#1e1b19] rounded-lg p-4 shadow-press-lg space-y-3">
+      {/* Tape header decoration */}
+      <div className="absolute -top-3 left-6 px-3 py-0.5 washi-tape-tertiary rounded-xs border border-[#1e1b19] font-mono text-[9px] font-bold uppercase tracking-wider text-[#2a1800] -rotate-1 shadow-press-sm">
+        FIELD NOTE // {hotspot.actionType.toUpperCase()}
+      </div>
+
+      <div className="flex items-start justify-between gap-2 pt-1 border-b border-dashed border-[#e1bfb5] pb-2">
+        <div className="font-display font-bold text-base text-[#1e1b19]">
+          {hotspot.label}
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="text-zinc-400 hover:text-white text-xs px-1.5 py-0.5 rounded hover:bg-[#1d212d]"
+          className="text-[#594139] hover:text-[#1e1b19] text-xs font-mono px-1.5 py-0.5 rounded hover:bg-[#e9e1dd]"
         >
           ✕
         </button>
       </div>
 
-      <p className="text-xs text-zinc-200 font-mono break-words leading-relaxed bg-[#0e1017] p-2.5 rounded border border-[#1f2430]">
-        {hotspot.value || '<Empty text region>'}
+      <p className="font-serif text-sm text-[#1e1b19] bg-[#ffffff] p-3 rounded border border-[#e1bfb5] leading-relaxed shadow-sm">
+        {hotspot.value || '<Empty region>'}
       </p>
 
       {hotspot.note && (
-        <div className="text-[11px] text-amber-300 flex items-start gap-1.5 bg-amber-950/40 border border-amber-900/60 p-2 rounded">
-          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+        <div className="text-xs font-mono text-[#805200] flex items-start gap-1.5 bg-[#ffddb6]/40 border border-[#805200]/40 p-2 rounded">
+          <AlertTriangle className="w-3.5 h-3.5 text-[#805200] shrink-0 mt-0.5" />
           <span>{hotspot.note}</span>
         </div>
       )}
 
-      {/* Action buttons */}
-      <div className="flex items-center gap-2 pt-1">
+      {/* Tactile Action Buttons */}
+      <div className="flex items-center gap-2 pt-1 font-mono text-xs">
         <button
           type="button"
           onClick={handleCopy}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded bg-[#1d212d] hover:bg-[#252a38] text-zinc-200 text-xs font-medium border border-[#252a38] transition-colors"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded bg-[#f4ece8] hover:bg-[#e9e1dd] text-[#1e1b19] font-bold border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
-          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-          {copied ? 'Copied' : 'Copy'}
+          {copied ? <Check className="w-3.5 h-3.5 text-[#46664b]" /> : <Copy className="w-3.5 h-3.5" />}
+          <span>{copied ? 'Copied' : 'Copy'}</span>
         </button>
 
         {hotspot.actionType === 'calendar' && onAddCalendar && (
           <button
             type="button"
             onClick={() => onAddCalendar(hotspot.label, hotspot.value)}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition-colors"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded bg-[#a73400] hover:bg-[#cb4914] text-white font-bold border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <Calendar className="w-3.5 h-3.5" />
-            Add to Cal
+            <span>Add to Cal</span>
           </button>
         )}
 
@@ -176,10 +176,10 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
             href={hotspot.value.startsWith('http') ? hotspot.value : `https://${hotspot.value}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium transition-colors"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded bg-[#46664b] hover:bg-[#345239] text-white font-bold border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Open Link
+            <span>Open Link</span>
           </a>
         )}
       </div>
