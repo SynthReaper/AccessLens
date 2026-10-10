@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { Camera, ArrowUpRight, FolderOpen, FileText } from 'lucide-react';
+import { Camera, FolderOpen } from 'lucide-react';
 import { SAMPLE_POSTERS } from '@/lib/sample-data';
 import { SamplePoster } from '@/lib/types';
 
@@ -56,7 +56,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Precision Drop & Capture Deck */}
+      {/* Tactile Pinned Drop Deck */}
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -65,10 +65,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         onDragLeave={() => setDragActive(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`group relative border transition-all cursor-pointer bg-[#0e1017] p-8 text-left ${
+        className={`group relative border-2 border-[#1e1b19] rounded-xl p-8 sm:p-10 text-left cursor-pointer transition-all bg-[#faf2ee] shadow-press-lg ${
           dragActive
-            ? 'border-[#f97316] ring-1 ring-[#f97316] bg-[#141724]'
-            : 'border-[#1e2230] hover:border-[#38bdf8]/60 hover:bg-[#121520]'
+            ? 'bg-[#ffdbcf]/50 scale-[1.005]'
+            : 'hover:bg-[#fff8f5]'
         }`}
       >
         <input
@@ -84,38 +84,41 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
           }}
         />
 
-        {/* Technical Corner Brackets */}
-        <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#38bdf8]" />
-        <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#38bdf8]" />
-        <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#38bdf8]" />
-        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#38bdf8]" />
+        {/* Washi tape header */}
+        <div className="absolute -top-3.5 left-8 px-3.5 py-1 washi-tape-secondary -rotate-2 rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm pointer-events-none whitespace-nowrap z-10">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#03210c] font-bold">
+            DROP &amp; PIN APERTURE
+          </span>
+        </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        {/* Pushpins */}
+        <div className="absolute top-3 right-4 pushpin-primary" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-2">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-[#f97316] tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 bg-[#f97316]" />
-              <span>Input Stage • Camera or High-Res Scan</span>
+            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#a73400] uppercase tracking-wider">
+              <span>🍁 Stage 01: Capture Campus Physical Paper</span>
             </div>
-            <h3 className="text-xl font-bold tracking-tight text-white">
-              Drop poster photograph, or select file
+            <h3 className="font-display font-extrabold text-2xl text-[#1e1b19] tracking-tight">
+              Snap a notice photo, or drop poster scan
             </h3>
-            <p className="text-xs text-[#94a3b8] max-w-lg leading-relaxed">
-              Accepts campus circulars, classroom flyers, and bulletin photos (JPG, PNG, SVG, WEBP).
-              Model resolves spatial bounding boxes and extracts logistics automatically.
+            <p className="font-serif text-sm text-[#594139] max-w-lg leading-relaxed">
+              Whiteboard scribbles, taped elevator circulars, or quad fest flyers.
+              Gemma 4 projects highlighters directly onto the paper with zero hallucination.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 font-mono text-xs">
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#181c28] hover:bg-[#202636] border border-[#2a3147] text-xs font-mono text-[#f8fafc] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 bg-[#ffffff] hover:bg-[#f4ece8] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded-lg shadow-press active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
-              <FolderOpen className="w-4 h-4 text-[#38bdf8]" />
+              <FolderOpen className="w-4 h-4 text-[#a73400]" />
               <span>Browse File</span>
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#f97316] hover:bg-[#ea580c] text-black text-xs font-mono font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
               <Camera className="w-4 h-4" />
               <span>Camera</span>
@@ -124,60 +127,62 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         </div>
       </div>
 
-      {/* Structured Benchmark Presets */}
-      <div className="border border-[#1e2230] bg-[#0e1017]">
-        <div className="px-4 py-2.5 border-b border-[#1e2230] flex items-center justify-between bg-[#121520]">
-          <div className="flex items-center gap-2 font-mono text-xs text-[#94a3b8]">
-            <FileText className="w-3.5 h-3.5 text-[#38bdf8]" />
-            <span className="font-semibold text-white">VERIFIED CAMPUS NOTICE FIXTURES</span>
-            <span className="text-[#64748b]">• Click to load instant spatial benchmarks</span>
+      {/* Hand-Drawn Washi Sample Tapes */}
+      <div className="border-2 border-[#1e1b19] bg-[#ffffff] rounded-xl shadow-press overflow-hidden">
+        <div className="px-5 py-3 border-b-2 border-[#1e1b19] flex items-center justify-between bg-[#faf2ee]">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#1e1b19]">
+            <span className="text-[#a73400] text-sm">📌</span>
+            <span className="font-bold">VERIFIED SAMPLE TAPES</span>
+            <span className="text-[#8d7168] hidden sm:inline">• 1-click test posters from around campus</span>
           </div>
-          <span className="text-[10px] font-mono text-[#f97316]">3 PRE-LOADED SAMPLES</span>
+          <span className="font-mono text-[10px] font-bold px-2.5 py-0.5 bg-[#c8ecca] text-[#03210c] border border-[#46664b] rounded shadow-press-sm -rotate-1">
+            Gemma 4 Benchmark
+          </span>
         </div>
 
-        <div className="divide-y divide-[#1e2230]">
+        <div className="divide-y-2 divide-[#1e1b19]">
           {SAMPLE_POSTERS.map((sample, idx) => {
             const isSelected = selectedSampleId === sample.id;
             return (
               <div
                 key={sample.id}
                 onClick={() => handleSelectSample(sample)}
-                className={`p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer transition-colors ${
+                className={`p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer transition-colors ${
                   isSelected
-                    ? 'bg-[#181c2b] border-l-2 border-l-[#f97316]'
-                    : 'hover:bg-[#131622]'
+                    ? 'bg-[#ffdbcf]/40 border-l-4 border-l-[#a73400]'
+                    : 'hover:bg-[#faf2ee]'
                 }`}
               >
                 <div className="flex items-start gap-4">
-                  <span className="font-mono text-xs text-[#64748b] mt-0.5">
+                  <span className="font-mono text-sm font-bold text-[#a73400] mt-0.5 bg-[#faf2ee] w-8 h-8 rounded-lg border-2 border-[#1e1b19] flex items-center justify-center shrink-0 shadow-press-sm">
                     0{idx + 1}
                   </span>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-sm text-white">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-display font-bold text-base text-[#1e1b19]">
                         {sample.title}
                       </span>
-                      <span className="text-[10px] font-mono uppercase px-1.5 py-0.2 rounded bg-[#1e2230] text-[#94a3b8]">
+                      <span className="font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-[#fff8f5] border border-[#1e1b19] text-[#594139] shadow-press-sm">
                         {sample.category.replace('_', ' ')}
                       </span>
                     </div>
-                    <p className="text-xs text-[#94a3b8] mt-1 leading-relaxed">
+                    <p className="font-serif text-sm text-[#594139] mt-1 leading-relaxed">
                       {sample.description}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 shrink-0 font-mono text-xs">
-                  <span className="text-[#64748b]">
-                    {sample.cachedResult.hotspots.length} Hotspots
+                  <span className="px-2 py-1 bg-[#faf2ee] border border-[#1e1b19] rounded text-[11px] text-[#594139] font-bold shadow-press-sm">
+                    🎯 {sample.cachedResult.hotspots.length} Markers
                   </span>
                   <button
                     type="button"
                     disabled={isLoading}
-                    className="inline-flex items-center gap-1 text-[#38bdf8] hover:text-white font-semibold"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#ffffff] hover:bg-[#a73400] hover:text-white border-2 border-[#1e1b19] rounded-lg font-bold shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all text-[#1e1b19]"
                   >
-                    <span>Run Evaluation</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span>Inspect Notice</span>
+                    <span>→</span>
                   </button>
                 </div>
               </div>

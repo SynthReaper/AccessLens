@@ -2,46 +2,88 @@
 
 @layer base {
   :root {
-    --font-sans: var(--font-sans), system-ui, sans-serif;
-    --font-mono: var(--font-mono), monospace;
+    --font-display: var(--font-display), "Bricolage Grotesque", sans-serif;
+    --font-serif: var(--font-serif), "Newsreader", Georgia, serif;
+    --font-mono: var(--font-mono), "Space Mono", monospace;
   }
 }
 
-/* Hard, crisp grid background - no blurry glows */
-.canvas-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+/* Warm Autumn Zine Color Palette & Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-mono {
+  font-family: var(--font-mono);
 }
 
-/* Technical hairline borders */
-.hairline-border {
-  border-width: 1px;
-  border-color: #1e2230;
+/* Tactile newsprint / paper texture background */
+.bg-newsprint {
+  background-color: #fff8f5;
+  background-image: radial-gradient(#e5d8d0 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
 }
 
-/* Sharp corner brackets for spatial crosshairs */
-.bracket-corners {
-  position: relative;
+/* Washi Tape authentic tinted paper stocks */
+.washi-tape-tertiary {
+  background: rgba(255, 221, 182, 0.95);
 }
-.bracket-corners::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
+
+.washi-tape-primary {
+  background: rgba(255, 219, 207, 0.95);
+}
+
+.washi-tape-secondary {
+  background: rgba(200, 236, 202, 0.95);
+}
+
+/* Tactile ink drop-shadows (Zine press effect) */
+.shadow-press-sm {
+  box-shadow: 2px 2px 0 #1e1b19;
+}
+.shadow-press {
+  box-shadow: 3px 3px 0 #1e1b19;
+}
+.shadow-press-lg {
+  box-shadow: 4px 4px 0 #1e1b19;
+}
+.shadow-press-xl {
+  box-shadow: 6px 6px 0 #1e1b19;
+}
+
+/* Corner Pushpins */
+.pushpin-primary {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #a73400;
+  box-shadow: 2px 2px 0 #1e1b19;
+  border: 2px solid #ffffff;
+}
+
+.pushpin-secondary {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #46664b;
+  box-shadow: 2px 2px 0 #1e1b19;
+  border: 2px solid #ffffff;
+}
+
+/* Subtle scrollbars for notebook columns */
+::-webkit-scrollbar {
   width: 6px;
   height: 6px;
-  border-top: 2px solid #f97316;
-  border-left: 2px solid #f97316;
 }
-.bracket-corners::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 6px;
-  height: 6px;
-  border-bottom: 2px solid #f97316;
-  border-right: 2px solid #f97316;
+::-webkit-scrollbar-track {
+  background: #f4ece8;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1bfb5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a73400;
 }

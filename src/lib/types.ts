@@ -73,6 +73,7 @@ export interface AnalysisRequest {
 export interface SamplePoster {
   id: string;
   title: string;
+  shortLabel: string;
   subtitle: string;
   thumbnailPath: string;
   description: string;

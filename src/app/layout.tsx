@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Bricolage_Grotesque, Newsreader, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const jakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-sans",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const newsreader = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "AccessLens — Spatial Notice & Poster Intelligence",
-  description: "Multimodal 2D spatial extraction for campus notices using Google Gemma 4 on the Gemini API.",
+  title: "AccessLens — Campus Notice Intelligence Zine",
+  description: "Tactile zine notice workbench powered by Google Gemma 4 spatial vision models for Hacktoberfest 2026 × MUJ.",
 };
 
 export default function RootLayout({
@@ -29,9 +37,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakartaSans.variable} ${jetbrainsMono.variable} h-full dark`}
+      className={`${bricolage.variable} ${newsreader.variable} ${spaceMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#0c0d12] text-[#e2e8f0] antialiased selection:bg-[#f97316]/20 selection:text-[#fed7aa]">
+      <body className="min-h-full flex flex-col font-serif bg-[#fff8f5] text-[#1e1b19] antialiased selection:bg-[#ffb59c] selection:text-[#390c00]">
         {children}
       </body>
     </html>

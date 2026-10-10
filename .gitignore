@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/design_ideas
+/scratch
 
 # next.js
 /.next/
