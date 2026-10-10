@@ -11,28 +11,35 @@ import {
   ListTodo,
   Info,
   HelpCircle,
-  Users
+  Users,
+  Crosshair
 } from 'lucide-react';
-import { AccessLensAnalysis } from '@/lib/types';
+import { AccessLensAnalysis, HotspotDetail } from '@/lib/types';
 import { ActionToolbar } from './ActionToolbar';
 import { ModelBadge } from './ModelBadge';
 
 interface StructuredResultCardProps {
   analysis: AccessLensAnalysis;
+  selectedHotspotId?: string | null;
+  onSelectHotspot?: (hotspot: HotspotDetail | null) => void;
 }
 
-export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ analysis }) => {
-  const { eventDetails, actionItems, uncertainties, keyTakeaways } = analysis;
+export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({
+  analysis,
+  selectedHotspotId,
+  onSelectHotspot
+}) => {
+  const { eventDetails, actionItems, uncertainties, keyTakeaways, hotspots } = analysis;
 
   return (
-    <div className="flex flex-col h-full rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6 space-y-6 overflow-y-auto">
+    <div className="flex flex-col h-full rounded-xl border border-[#252a38] bg-[#11131a] p-5 sm:p-6 space-y-6 overflow-y-auto shadow-sm">
       {/* Header metadata */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#252a38] pb-4">
         <div>
-          <span className="text-[11px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-sky-950/70 border border-sky-800/80 text-sky-300">
+          <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded bg-sky-950/60 border border-sky-800/60 text-sky-300 font-semibold">
             {analysis.category.replace('_', ' ')}
           </span>
-          <h2 className="text-xl font-bold text-zinc-100 mt-2 leading-tight">
+          <h2 className="text-xl font-bold text-zinc-100 mt-2 leading-tight tracking-tight">
             {eventDetails.title || 'Campus Notice Details'}
           </h2>
         </div>
@@ -43,11 +50,45 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
         />
       </div>
 
+      {/* Spatial Hotspots Quick Navigator */}
+      {hotspots && hotspots.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <span className="flex items-center gap-1.5">
+              <Crosshair className="w-3.5 h-3.5 text-sky-400" />
+              Interactive Poster Hotspots ({hotspots.length})
+            </span>
+            <span className="text-[10px] text-zinc-500 font-mono">Click to focus</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {hotspots.map((hs) => {
+              const isSelected = selectedHotspotId === hs.id;
+              return (
+                <button
+                  key={hs.id}
+                  type="button"
+                  onClick={() => onSelectHotspot && onSelectHotspot(isSelected ? null : hs)}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-all border ${
+                    isSelected
+                      ? 'bg-sky-500 text-white border-sky-400 shadow-sm font-bold'
+                      : 'bg-[#161922] hover:bg-[#1d212d] text-zinc-300 border-[#252a38]'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-sky-400'}`} />
+                  <span>{hs.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Plain Language Executive Summary */}
-      <div className="p-4 rounded-lg bg-zinc-950/60 border border-zinc-800 space-y-2">
+      <div className="p-4 rounded-lg bg-[#161922] border border-[#252a38] space-y-2">
         <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-400">
           <Info className="w-3.5 h-3.5 text-sky-400" />
-          <span>Plain-Language Summary</span>
+          <span>Executive Summary</span>
         </div>
         <p className="text-sm text-zinc-200 leading-relaxed">
           {analysis.headlineSummary}
@@ -65,7 +106,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
             {keyTakeaways.map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-start gap-2 p-2.5 rounded-lg bg-zinc-950/40 border border-zinc-850 text-zinc-300"
+                className="flex items-start gap-2 p-2.5 rounded-lg bg-[#161922] border border-[#252a38] text-zinc-300"
               >
                 <span className="text-sky-400 font-mono mt-0.5">•</span>
                 <span>{item}</span>
@@ -83,7 +124,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
           {/* Date */}
-          <div className="p-3 rounded-lg bg-zinc-950/50 border border-zinc-800 flex items-start gap-2.5">
+          <div className="p-3 rounded-lg bg-[#161922] border border-[#252a38] flex items-start gap-2.5">
             <Calendar className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] text-zinc-400 block">Date</span>
@@ -94,7 +135,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
           </div>
 
           {/* Time */}
-          <div className="p-3 rounded-lg bg-zinc-950/50 border border-zinc-800 flex items-start gap-2.5">
+          <div className="p-3 rounded-lg bg-[#161922] border border-[#252a38] flex items-start gap-2.5">
             <Clock className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] text-zinc-400 block">Time</span>
@@ -105,7 +146,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
           </div>
 
           {/* Venue */}
-          <div className="p-3 rounded-lg bg-zinc-950/50 border border-zinc-800 flex items-start gap-2.5">
+          <div className="p-3 rounded-lg bg-[#161922] border border-[#252a38] flex items-start gap-2.5">
             <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] text-zinc-400 block">Venue / Room</span>
@@ -116,7 +157,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
           </div>
 
           {/* Organizer */}
-          <div className="p-3 rounded-lg bg-zinc-950/50 border border-zinc-800 flex items-start gap-2.5">
+          <div className="p-3 rounded-lg bg-[#161922] border border-[#252a38] flex items-start gap-2.5">
             <Users className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] text-zinc-400 block">Organizer</span>
@@ -142,7 +183,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
                 className={`p-3 rounded-lg border text-xs flex items-start justify-between gap-3 ${
                   act.isUrgent
                     ? 'bg-rose-950/20 border-rose-800/60 text-rose-200'
-                    : 'bg-zinc-950/40 border-zinc-800 text-zinc-300'
+                    : 'bg-[#161922] border-[#252a38] text-zinc-300'
                 }`}
               >
                 <div className="space-y-1">
@@ -161,7 +202,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
                   )}
                 </div>
                 {act.deadline && (
-                  <span className="shrink-0 font-mono text-[11px] px-2 py-1 rounded bg-zinc-900 border border-zinc-700 text-amber-300">
+                  <span className="shrink-0 font-mono text-[11px] px-2 py-1 rounded bg-[#0e1017] border border-[#252a38] text-amber-300">
                     {act.deadline}
                   </span>
                 )}
@@ -171,9 +212,9 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
         </div>
       )}
 
-      {/* Uncertainty & Cropped Text Handling (Key PRD Acceptance Criteria) */}
+      {/* Uncertainty & Cropped Text Handling */}
       {uncertainties && uncertainties.length > 0 ? (
-        <div className="p-3.5 rounded-lg bg-amber-950/30 border border-amber-800/60 space-y-2 text-xs">
+        <div className="p-3.5 rounded-lg bg-amber-950/25 border border-amber-800/60 space-y-2 text-xs">
           <div className="flex items-center gap-1.5 text-amber-300 font-semibold">
             <AlertCircle className="w-4 h-4 text-amber-400" />
             <span>Uncertain / Cropped / Low-Clarity Text Detected</span>
@@ -196,7 +237,7 @@ export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({ anal
           </ul>
         </div>
       ) : (
-        <div className="p-2.5 rounded-lg bg-zinc-950/30 border border-zinc-850 flex items-center gap-2 text-[11px] text-zinc-400">
+        <div className="p-2.5 rounded-lg bg-[#161922] border border-[#252a38] flex items-center gap-2 text-[11px] text-zinc-400">
           <HelpCircle className="w-3.5 h-3.5 text-emerald-400" />
           <span>No visual occlusions detected. Text parsed with high confidence.</span>
         </div>

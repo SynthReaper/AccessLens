@@ -2,21 +2,20 @@
 
 import React, { useState } from 'react';
 import {
-  Sparkles,
   RefreshCw,
-  Info,
-  ShieldCheck,
   GitBranch,
-  Layers
+  SlidersHorizontal,
+  Activity
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
 import { SplitViewComparison } from '@/components/SplitViewComparison';
 import { StructuredResultCard } from '@/components/StructuredResultCard';
-import { AccessLensAnalysis, SamplePoster } from '@/lib/types';
+import { AccessLensAnalysis, SamplePoster, HotspotDetail } from '@/lib/types';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AccessLensAnalysis | null>(null);
+  const [selectedHotspot, setSelectedHotspot] = useState<HotspotDetail | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState<'full' | 'event_only' | 'deadlines_only'>('full');
@@ -27,6 +26,7 @@ export default function Home() {
     sampleData?: SamplePoster
   ) => {
     setSelectedImage(previewUrl || base64);
+    setSelectedHotspot(null);
     setError(null);
 
     // If it's a sample and pre-cached, provide instant response while allowing live re-run
@@ -65,199 +65,209 @@ export default function Home() {
   const handleReset = () => {
     setSelectedImage(null);
     setAnalysisResult(null);
+    setSelectedHotspot(null);
     setError(null);
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
-      {/* Top Navigation */}
-      <header className="border-b border-zinc-800/80 bg-zinc-900/40 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-base tracking-tight text-white">AccessLens</span>
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-sky-400 border border-zinc-700">
-                  Gemma 4 Multimodal
-                </span>
+    <div className="min-h-screen bg-[#0c0d12] text-[#f8fafc] flex flex-col font-sans canvas-grid">
+      {/* Precision Instrument Header */}
+      <header className="border-b border-[#1e2230] bg-[#0e1017]/90 backdrop-blur sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-5 h-5 bg-[#f97316] flex items-center justify-center font-mono text-[11px] font-black text-black">
+                AL
               </div>
-              <p className="text-[11px] text-zinc-400 hidden sm:block">
-                Campus Notice &amp; Poster Intelligence • Hacktoberfest 2026 × MUJ
-              </p>
+              <span className="font-bold text-sm tracking-tight text-white font-mono">
+                ACCESSLENS / SPATIAL-CORE
+              </span>
+            </div>
+
+            <div className="hidden md:flex items-center gap-2 border-l border-[#1e2230] pl-4 font-mono text-[11px] text-[#64748b]">
+              <span className="text-[#38bdf8]">GEMMA-4-31B</span>
+              <span>•</span>
+              <span>2D BOUNDING COORDINATES [0-1000]</span>
+              <span>•</span>
+              <span>HACKTOBERFEST MUJ</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 font-mono text-xs">
             <a
-              href="https://github.com"
+              href="https://github.com/accesslens/accesslens"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141724] hover:bg-[#1a1f30] border border-[#1e2230] text-[#94a3b8] hover:text-white transition-colors"
             >
-              <GitBranch className="w-3.5 h-3.5" />
-              <span>Public Repo</span>
+              <GitBranch className="w-3.5 h-3.5 text-[#38bdf8]" />
+              <span>GitHub</span>
             </a>
+
             {selectedImage && (
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs bg-zinc-850 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f97316] hover:bg-[#ea580c] text-black font-bold transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                <span>New Notice</span>
+                <span>Reset Canvas</span>
               </button>
             )}
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 space-y-6">
-        {/* Intro Banner when no image selected */}
+      {/* Main Studio Viewport */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 space-y-6">
+        {/* Compact Instrument Controller (When no image selected) */}
         {!selectedImage && (
-          <div className="max-w-3xl mx-auto text-center space-y-3 pt-4 pb-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/40 border border-sky-800/60 text-sky-300 text-xs font-mono">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Google Gemma 4 Track • Open-Source Project</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-              Campus notices turned into structured action.
-            </h1>
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              Photograph any campus announcement, event poster, or department circular.
-              AccessLens extracts confirmed logistics, flags torn or unreadable details, and exports to calendar in one click.
-            </p>
+          <div className="space-y-6 pt-2">
+            <div className="border border-[#1e2230] bg-[#0e1017] p-6 sm:p-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-3 max-w-2xl">
+                <div className="inline-flex items-center gap-2 font-mono text-[11px] text-[#38bdf8] uppercase tracking-wider">
+                  <Activity className="w-3.5 h-3.5 text-[#f97316]" />
+                  <span>Physical Campus Notice to Structured Action Matrix</span>
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                  Multimodal 2D Spatial Grounding for Real-World Signs &amp; Posters
+                </h1>
+                <p className="text-xs sm:text-sm text-[#94a3b8] leading-relaxed">
+                  Extracts confirmed logistics, RFC 5545 calendar entries, and urgent deadlines directly from raw imagery.
+                  Coordinates ($ymin, xmin, ymax, xmax$) project interactive hotspot targets directly onto the original photo.
+                </p>
+              </div>
 
-            {/* Mode Selector */}
-            <div className="flex items-center justify-center gap-2 pt-2 text-xs">
-              <span className="text-zinc-400 font-mono">Focus Mode:</span>
-              <button
-                type="button"
-                onClick={() => setFocusMode('full')}
-                className={`px-3 py-1 rounded-md border transition-colors ${
-                  focusMode === 'full'
-                    ? 'bg-sky-950/80 border-sky-600 text-sky-200'
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                Full Notice
-              </button>
-              <button
-                type="button"
-                onClick={() => setFocusMode('event_only')}
-                className={`px-3 py-1 rounded-md border transition-colors ${
-                  focusMode === 'event_only'
-                    ? 'bg-sky-950/80 border-sky-600 text-sky-200'
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                Event Details Only
-              </button>
-              <button
-                type="button"
-                onClick={() => setFocusMode('deadlines_only')}
-                className={`px-3 py-1 rounded-md border transition-colors ${
-                  focusMode === 'deadlines_only'
-                    ? 'bg-sky-950/80 border-sky-600 text-sky-200'
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                Urgent Deadlines
-              </button>
+              {/* Focus Selector */}
+              <div className="space-y-2 shrink-0 font-mono text-xs">
+                <div className="text-[10px] uppercase text-[#64748b] tracking-wider flex items-center gap-1.5">
+                  <SlidersHorizontal className="w-3 h-3 text-[#f97316]" />
+                  <span>Pipeline Focus Filter</span>
+                </div>
+                <div className="inline-flex border border-[#1e2230] bg-[#121520] p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setFocusMode('full')}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      focusMode === 'full'
+                        ? 'bg-[#f97316] text-black font-bold'
+                        : 'text-[#94a3b8] hover:text-white'
+                    }`}
+                  >
+                    Full Matrix
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFocusMode('event_only')}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      focusMode === 'event_only'
+                        ? 'bg-[#f97316] text-black font-bold'
+                        : 'text-[#94a3b8] hover:text-white'
+                    }`}
+                  >
+                    Logistics Only
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFocusMode('deadlines_only')}
+                    className={`px-3 py-1 text-xs transition-colors ${
+                      focusMode === 'deadlines_only'
+                        ? 'bg-[#f97316] text-black font-bold'
+                        : 'text-[#94a3b8] hover:text-white'
+                    }`}
+                  >
+                    Deadlines
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
 
-        {/* Upload / Selection View */}
-        {!selectedImage && (
-          <div className="max-w-4xl mx-auto">
+            {/* Upload Area & Presets */}
             <ImageUploader onImageSelected={handleImageSelected} isLoading={isLoading} />
           </div>
         )}
 
-        {/* Loading State Overlay */}
+        {/* Loading Telemetry Bar */}
         {isLoading && (
-          <div className="p-12 rounded-xl border border-zinc-800 bg-zinc-900/60 text-center space-y-4 max-w-xl mx-auto">
-            <div className="w-12 h-12 mx-auto rounded-full border-2 border-sky-500 border-t-transparent animate-spin" />
-            <div className="space-y-1">
-              <h3 className="text-base font-semibold text-zinc-100">
-                Gemma 4 is reading the campus poster...
-              </h3>
-              <p className="text-xs text-zinc-400 font-mono">
-                Multimodal extraction via Gemini API • Parsing typography and spatial layout
-              </p>
+          <div className="border border-[#1e2230] bg-[#0e1017] p-8 text-center space-y-3 font-mono max-w-lg mx-auto">
+            <div className="w-8 h-8 mx-auto border-2 border-[#f97316] border-t-transparent animate-spin" />
+            <div className="text-sm font-bold text-white">
+              ANALYZING MULTIMODAL SPATIAL TOKENS...
+            </div>
+            <div className="text-xs text-[#64748b]">
+              Gemma 4 resolving 2D coordinate boxes [0-1000] via Google GenAI SDK
             </div>
           </div>
         )}
 
         {/* Error Feedback */}
         {error && (
-          <div className="p-4 rounded-xl border border-rose-800/80 bg-rose-950/30 text-rose-200 text-sm flex items-start gap-3 max-w-2xl mx-auto">
-            <Info className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+          <div className="border border-[#dc2626] bg-[#2a0e10] p-4 text-xs font-mono text-[#fca5a5] max-w-2xl mx-auto flex items-start gap-3">
+            <span className="font-bold text-[#ef4444]">[API ERROR]</span>
             <div className="space-y-1">
-              <div className="font-semibold">Analysis Notice</div>
-              <p className="text-xs text-rose-300">{error}</p>
-              <p className="text-[11px] text-zinc-400 mt-2">
-                Tip: If running without a live GEMINI_API_KEY, use the instant campus presets on the homepage to explore verified test samples.
-              </p>
+              <div>{error}</div>
+              <div className="text-[#94a3b8] text-[11px]">
+                Switch to verified campus samples to inspect complete offline fixtures.
+              </div>
             </div>
           </div>
         )}
 
-        {/* Split Screen View (Source Poster vs Structured Gemma Intelligence) */}
+        {/* Studio Split-Screen Inspection Matrix */}
         {selectedImage && analysisResult && !isLoading && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                <Layers className="w-4 h-4 text-sky-400" />
-                <span>Side-by-side Verification Matrix</span>
+          <div className="space-y-3">
+            {/* Viewport Status Header */}
+            <div className="border border-[#1e2230] bg-[#0e1017] px-4 py-2 flex items-center justify-between font-mono text-xs">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+                <span className="font-bold text-white">SPATIAL EXTRACTION ACTIVE</span>
+                <span className="text-[#64748b] hidden sm:inline">|</span>
+                <span className="text-[#38bdf8] hidden sm:inline">{analysisResult.hotspots.length} DETECTED HOTSPOTS</span>
               </div>
-              <span className="text-xs text-zinc-400 font-mono">
-                Comparing original physical capture vs model extraction
-              </span>
+
+              <div className="flex items-center gap-4 text-[#94a3b8]">
+                <span>LATENCY: {(analysisResult.processingTimeMs / 1000).toFixed(2)}s</span>
+                <span>MODEL: {analysisResult.modelUsed.split(' ')[0]}</span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-              {/* Left Column: Original Poster with Zoom */}
+            {/* Split View Columns */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+              {/* Left Column: Interactive Spatial Canvas */}
               <div className="h-full">
                 <SplitViewComparison
                   imageSrc={selectedImage}
                   hasUncertainties={analysisResult.uncertainties.length > 0}
+                  hotspots={analysisResult.hotspots}
+                  selectedHotspotId={selectedHotspot?.id || null}
+                  onSelectHotspot={setSelectedHotspot}
+                  eventDetails={analysisResult.eventDetails}
                 />
               </div>
 
-              {/* Right Column: Structured Extracted Knowledge */}
+              {/* Right Column: Structured Knowledge Extraction Deck */}
               <div className="h-full">
-                <StructuredResultCard analysis={analysisResult} />
+                <StructuredResultCard
+                  analysis={analysisResult}
+                  selectedHotspotId={selectedHotspot?.id || null}
+                  onSelectHotspot={setSelectedHotspot}
+                />
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* Footer & Hackathon Attribution */}
-      <footer className="border-t border-zinc-900 bg-zinc-950 py-6 mt-12 text-xs text-zinc-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-zinc-300">AccessLens</span>
-            <span>• Built for Hacktoberfest 2026 × MUJ</span>
+      {/* Technical Footer */}
+      <footer className="border-t border-[#1e2230] bg-[#0a0b0f] py-4 mt-8 font-mono text-xs text-[#64748b]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-3">
+            <span className="font-bold text-white">ACCESSLENS</span>
+            <span>•</span>
+            <span>HACKTOBERFEST 2026 × MANIPAL UNIVERSITY JAIPUR</span>
           </div>
-          <div className="flex items-center gap-4 text-zinc-400">
-            <span>Model: Google Gemma 4 (Gemini API)</span>
-            <span>•</span>
-            <span>License: MIT</span>
-            <span>•</span>
-            <a
-              href="https://ai.google.dev/gemma"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sky-400 hover:underline"
-            >
-              Gemma Open Weights
-            </a>
+          <div>
+            <span>OPEN WEIGHTS MULTIMODAL INFERENCE VIA GEMINI API</span>
           </div>
         </div>
       </footer>

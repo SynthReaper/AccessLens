@@ -46,7 +46,59 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
         {
           field: 'refreshment_policy',
           reason: 'cropped',
-          observation: 'Bottom right corner has a partially obscured note mentioning "Lunch coupons issued at..." but ticket details are clipped.'
+          observation: 'Bottom right corner has a partially obscured note mentioning "Lunch coupons issued at..." but ticket details are clipped.',
+          box2d: [859, 75, 920, 925]
+        }
+      ],
+      hotspots: [
+        {
+          id: 'hs-title',
+          label: 'Event Title',
+          value: 'TechNova 2026: Multimodal Intelligence & Autonomous Robotics',
+          actionType: 'copy',
+          box2d: [170, 75, 260, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-date',
+          label: 'Date & Timing',
+          value: 'October 24–25, 2026 (09:30 AM – 05:30 PM IST)',
+          actionType: 'calendar',
+          box2d: [363, 75, 490, 475],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-venue',
+          label: 'Campus Venue',
+          value: 'Turing Auditorium, Academic Block 1, MUJ Campus',
+          actionType: 'map',
+          box2d: [363, 525, 490, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-deadline',
+          label: 'Registration Deadline',
+          value: 'Abstract Submission: Oct 18, 2026 (11:59 PM)',
+          actionType: 'calendar',
+          box2d: [700, 75, 836, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-link',
+          label: 'RSVP Portal',
+          value: 'https://technova.muj.ac.in/register',
+          actionType: 'link',
+          box2d: [800, 112, 836, 600],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-torn',
+          label: 'Torn / Cropped Note',
+          value: 'Lunch coupons issued at... [corner torn]',
+          actionType: 'inspect',
+          box2d: [859, 75, 920, 925],
+          confidence: 'low',
+          note: 'Physical corner torn off on notice board'
         }
       ],
       confidenceDisclaimer: 'Verified with high confidence from notice header and date banner. Always check technova.muj.ac.in for real-time room schedule changes.',
@@ -101,7 +153,43 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
         {
           field: 'weekend_air_conditioning',
           reason: 'ambiguous',
-          observation: 'Notice states "HVAC maintenance scheduled on alternating Saturdays" without specifying which zones are impacted.'
+          observation: 'Notice states "HVAC maintenance scheduled on alternating Saturdays" without specifying which zones are impacted.',
+          box2d: [827, 87, 881, 912]
+        }
+      ],
+      hotspots: [
+        {
+          id: 'hs-lib-title',
+          label: 'Notice Heading',
+          value: 'Exam Access & Overdue Book Clearance Schedule',
+          actionType: 'copy',
+          box2d: [181, 62, 245, 937],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-lib-hours',
+          label: '24x7 Reading Access',
+          value: 'Reading Halls: 24 Hours Open (Continuous)',
+          actionType: 'map',
+          box2d: [381, 87, 527, 912],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-lib-waiver',
+          label: 'Fine Waiver Cutoff',
+          value: 'October 14, 2026 (05:00 PM IST)',
+          actionType: 'calendar',
+          box2d: [554, 87, 690, 912],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-lib-ambiguous',
+          label: 'Ambiguous HVAC Schedule',
+          value: 'HVAC maintenance scheduled on alternating Saturdays',
+          actionType: 'inspect',
+          box2d: [827, 87, 881, 912],
+          confidence: 'medium',
+          note: 'Affected study zones unspecified'
         }
       ],
       confidenceDisclaimer: 'Administrative circular scanned with 98% text clarity. Verify seat reservations via the library desk if portal shows high traffic.',
@@ -156,7 +244,43 @@ export const SAMPLE_POSTERS: SamplePoster[] = [
         {
           field: 'exact_interview_slot',
           reason: 'absent',
-          observation: 'Notice instructs candidates to wait for an email confirming their specific interview slot timestamp.'
+          observation: 'Notice instructs candidates to wait for an email confirming their specific interview slot timestamp.',
+          box2d: [827, 75, 900, 925]
+        }
+      ],
+      hotspots: [
+        {
+          id: 'hs-aero-club',
+          label: 'Club Title',
+          value: 'AeroClub MUJ — Drone Dynamics & Autonomous Flight',
+          actionType: 'copy',
+          box2d: [120, 75, 205, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-aero-audition',
+          label: 'Interview Slot & Venue',
+          value: 'Oct 16 & 17, 2026 (4:30 PM – 8:00 PM) at Robotics Hangar',
+          actionType: 'calendar',
+          box2d: [518, 75, 663, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-aero-form',
+          label: 'Registration Deadline',
+          value: 'forms.gle/aeroclub-muj-2026 (Closes Oct 14, 8:00 PM)',
+          actionType: 'link',
+          box2d: [690, 75, 809, 925],
+          confidence: 'high'
+        },
+        {
+          id: 'hs-aero-pending',
+          label: 'Pending Email Dispatches',
+          value: 'Audition slot tokens dispatched to registered emails',
+          actionType: 'inspect',
+          box2d: [827, 75, 900, 925],
+          confidence: 'medium',
+          note: 'Specific slot tokens distributed via email batch'
         }
       ],
       confidenceDisclaimer: 'Extracted clearly from poster typography. Check your spam folder after filling the form for your interview token.',
