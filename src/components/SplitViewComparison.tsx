@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ZoomIn, ZoomOut, RotateCcw, Layers } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Layers, Sliders } from 'lucide-react';
 import { HotspotDetail, EventDetails } from '@/lib/types';
 import { HotspotOverlayLayer, HotspotPopoverCard } from './HotspotOverlay';
 import { downloadIcsFile } from '@/lib/calendar-export';
@@ -25,6 +25,7 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
 }) => {
   const [zoom, setZoom] = useState(1);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [isDeskewEnhanced, setIsDeskewEnhanced] = useState(false);
   const [hoveredHotspotId, setHoveredHotspotId] = useState<string | null>(null);
   const [activeHotspot, setActiveHotspot] = useState<HotspotDetail | null>(null);
 
@@ -66,7 +67,22 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
         </div>
 
         {/* Stationery Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* De-skew / Perspective Enhance Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsDeskewEnhanced(!isDeskewEnhanced)}
+            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded font-mono text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+              isDeskewEnhanced
+                ? 'bg-[#cb4914] text-white'
+                : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#faf2ee]'
+            }`}
+            title="Auto-contrast & scan clarity enhance"
+          >
+            <Sliders className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Scan Enhance [{isDeskewEnhanced ? 'ON' : 'OFF'}]</span>
+          </button>
+
           {/* Highlighter Toggle */}
           {hotspots.length > 0 && (
             <button
@@ -79,7 +95,7 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Highlighters [{showOverlay ? 'ON' : 'OFF'}]</span>
+              <span>Pins [{showOverlay ? 'ON' : 'OFF'}]</span>
             </button>
           )}
 
@@ -131,7 +147,10 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
           <img
             src={imageSrc}
             alt="Source Campus Poster"
-            className="w-auto h-auto max-w-full max-h-[640px] rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white mx-auto"
+            style={{
+              filter: isDeskewEnhanced ? 'contrast(1.22) brightness(1.05) saturate(1.1)' : 'none'
+            }}
+            className="w-auto h-auto max-w-full max-h-[640px] rounded-lg border-2 border-[#1e1b19] shadow-press-xl object-contain select-none block bg-white mx-auto transition-all"
           />
 
           {/* 2D Hotspot Overlays */}

@@ -8,7 +8,8 @@ import {
   Copy,
   AlertTriangle,
   Check,
-  Tag
+  Tag,
+  QrCode
 } from 'lucide-react';
 import { HotspotDetail, Box2D } from '@/lib/types';
 
@@ -39,6 +40,7 @@ export const HotspotOverlayLayer: React.FC<HotspotOverlayLayerProps> = ({
         const isSelected = selectedHotspotId === hs.id;
         const isHovered = hoveredHotspotId === hs.id;
         const isInspection = hs.actionType === 'inspect';
+        const isQr = hs.actionType === 'link' || hs.label.toLowerCase().includes('qr') || hs.label.toLowerCase().includes('link');
 
         // Warm Autumn Zine Highlighter Palette
         let borderClass = 'border-[#a73400] bg-[#ffdbcf]/30 text-[#390c00]';
@@ -87,7 +89,7 @@ export const HotspotOverlayLayer: React.FC<HotspotOverlayLayerProps> = ({
             >
               {hs.actionType === 'calendar' && <Calendar className="w-2.5 h-2.5" />}
               {hs.actionType === 'map' && <MapPin className="w-2.5 h-2.5" />}
-              {hs.actionType === 'link' && <ExternalLink className="w-2.5 h-2.5" />}
+              {isQr ? <QrCode className="w-2.5 h-2.5" /> : hs.actionType === 'link' ? <ExternalLink className="w-2.5 h-2.5" /> : null}
               {hs.actionType === 'inspect' && <AlertTriangle className="w-2.5 h-2.5" />}
               {hs.actionType === 'copy' && <Tag className="w-2.5 h-2.5" />}
               <span>{hs.label}</span>
@@ -111,6 +113,7 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
   onAddCalendar
 }) => {
   const [copied, setCopied] = React.useState(false);
+  const isQr = hotspot.actionType === 'link' || hotspot.label.toLowerCase().includes('qr') || hotspot.value.toLowerCase().includes('http');
 
   const handleCopy = () => {
     navigator.clipboard.writeText(hotspot.value);
@@ -126,8 +129,9 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
       </div>
 
       <div className="flex items-start justify-between gap-2 pt-1 border-b border-dashed border-[#e1bfb5] pb-2">
-        <div className="font-display font-bold text-base text-[#1e1b19]">
-          {hotspot.label}
+        <div className="font-display font-bold text-base text-[#1e1b19] flex items-center gap-1.5">
+          {isQr && <QrCode className="w-4 h-4 text-[#a73400]" />}
+          <span>{hotspot.label}</span>
         </div>
         <button
           type="button"
@@ -138,7 +142,7 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
         </button>
       </div>
 
-      <p className="font-serif text-sm text-[#1e1b19] bg-[#ffffff] p-3 rounded border border-[#e1bfb5] leading-relaxed shadow-sm">
+      <p className="font-serif text-sm text-[#1e1b19] bg-[#ffffff] p-3 rounded border border-[#e1bfb5] leading-relaxed shadow-sm break-all">
         {hotspot.value || '<Empty region>'}
       </p>
 
@@ -171,7 +175,7 @@ export const HotspotPopoverCard: React.FC<HotspotPopoverCardProps> = ({
           </button>
         )}
 
-        {hotspot.actionType === 'link' && (
+        {(hotspot.actionType === 'link' || isQr) && (
           <a
             href={hotspot.value.startsWith('http') ? hotspot.value : `https://${hotspot.value}`}
             target="_blank"
