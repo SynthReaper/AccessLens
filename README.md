@@ -125,18 +125,35 @@ npm run build
 
 ---
 
+## ✨ Feature Suite
+
+1. **Gemma 4 Multimodal Vision Extraction**: 2D coordinate bounding boxes (`[ymin, xmin, ymax, xmax]`), zero-hallucination uncertainty detection for torn/cropped notices, plain-language summaries, logistics parsing.
+2. **Client-Side QR Code Engine**: Detects QR registration codes directly inside notice images via `jsQR` with interactive pin overlays.
+3. **Web Speech Synthesizer ("Read Aloud")**: Voice accessibility for visually impaired students.
+4. **MUJ Campus Wayfinder**: Built-in interactive map linking detected venues (Academic Blocks AB1/AB2/AB3, Sanganane Auditorium, Central Library) with walking directions and Google Maps pins.
+5. **Interactive Notice Q&A Assistant (`/api/ask`)**: Multi-turn contextual querying over notice content powered by Gemma 4.
+6. **Discord Webhook Broadcaster (`/api/broadcast`)**: 1-click rich embed broadcast directly into student clubs and batch Discord servers.
+7. **Document Contrast Enhancer**: In-browser image processing filter boosting low-light or wrinkled notice legibility.
+8. **Export Toolkit**: RFC 5545 `.ics` calendar sync, markdown summary export, and direct WhatsApp group forwarder.
+
+---
+
 ## 📋 Open-Source Compliance & GitHub History
 
 AccessLens is developed transparently according to Hacktoberfest × MUJ guidelines:
 
 - **MIT License:** Included in [`LICENSE`](./LICENSE).
 - **Issue #1 (Team Registration):** Full registration log documented in [`docs/ISSUES_AND_PRS.md`](./docs/ISSUES_AND_PRS.md).
-- **Issue Tracking:** Issues `#2` through `#6` track multimodal API, mobile camera, split view, calendar export, and CI/CD.
+- **Issue Tracking:** Issues `#2` through `#7` track multimodal API, mobile camera, split view, calendar export, high-impact accessibility features, and CI/CD.
 - **CI Workflow:** Automated build and test on every PR in [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
 ---
 
-## 👥 Authors
+## 👥 Authors & Attribution
 
-- **Aditya Goyal ( SynthReaper )** — Manipal University Jaipur
+- **Aditya Goyal (@SynthReaper)**
+  - Role: Solo Developer & Architect
+  - Institution: Manipal University Jaipur (MUJ)
+  - GitHub: [SynthReaper](https://github.com/SynthReaper)
 - Built for **Hacktoberfest 2026 × MUJ** (October 2026).
+

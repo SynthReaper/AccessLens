@@ -103,33 +103,39 @@ Extracted via AccessLens with Gemma 4 Vision.`;
     <div className="flex flex-col space-y-5">
       {/* CARD 1: Quick Scoop (TL;DR) - Styled like a legal pad memo with tape */}
       <div className="relative bg-[#ffddb6]/35 border-2 border-[#1e1b19] rounded-xl p-5 sm:p-6 shadow-press">
-        {/* Memo clip tape */}
-        <div className="absolute -top-3.5 right-6 px-3.5 py-0.5 washi-tape-tertiary -rotate-2 rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm whitespace-nowrap z-10">
-          <span className="font-mono text-[9px] uppercase tracking-wider text-[#2a1800] font-bold">MEMO CLIP</span>
-        </div>
-
-        <div className="flex items-center justify-between pb-2 border-b border-dashed border-[#805200]/30">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-dashed border-[#805200]/30">
+          <div className="flex items-center gap-2 shrink-0">
             <span className="text-[#a73400] text-lg">⚡</span>
-            <h2 className="font-display font-bold text-lg text-[#1e1b19]">Quick Scoop (TL;DR)</h2>
+            <h2 className="font-display font-extrabold text-lg text-[#1e1b19] whitespace-nowrap">
+              Quick Scoop
+            </h2>
+            <span className="font-mono text-[10px] text-[#805200] font-bold px-1.5 py-0.5 rounded bg-white border border-[#805200]/30 whitespace-nowrap shadow-press-xs">
+              TL;DR
+            </span>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-2 shrink-0">
             {/* Audio Speech Button */}
             <button
               type="button"
               onClick={handleToggleAudio}
-              className={`inline-flex items-center gap-1 font-mono text-[11px] px-2.5 py-0.5 rounded-full border-2 border-[#1e1b19] font-bold shadow-press-xs active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+              className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1 rounded-full border-2 border-[#1e1b19] font-bold shadow-press-xs active:translate-x-0.5 active:translate-y-0.5 transition-all ${
                 isPlayingAudio
                   ? 'bg-[#cb4914] text-white animate-pulse'
                   : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#faf2ee]'
               }`}
               title="Vocalize Notice with Web Speech"
             >
-              {isPlayingAudio ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#a73400]" />}
+              {isPlayingAudio ? (
+                <VolumeX className="w-3.5 h-3.5 text-white" />
+              ) : (
+                <Volume2 className="w-3.5 h-3.5 text-[#a73400]" />
+              )}
               <span>{isPlayingAudio ? 'Stop Voice' : 'Read Aloud'}</span>
             </button>
-            <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-[#ffffff] text-[#1e1b19] border border-[#1e1b19] font-bold shadow-press-sm hidden sm:inline">
-              ☕ 15-sec digest
+
+            <span className="whitespace-nowrap shrink-0 inline-flex items-center gap-1 font-mono text-[11px] px-2.5 py-1 rounded-full bg-[#ffffff] text-[#1e1b19] border border-[#1e1b19] font-bold shadow-press-xs">
+              ☕ 15-sec
             </span>
           </div>
         </div>
@@ -379,44 +385,55 @@ Extracted via AccessLens with Gemma 4 Vision.`;
       </div>
 
       {/* CARD 6: Handy Actions Bar (Tactile Buttons) */}
-      <div className="bg-[#faf2ee] border-2 border-[#1e1b19] rounded-xl p-4 shadow-press flex flex-col sm:flex-row gap-2.5 items-center justify-between font-mono text-xs">
-        <button
-          type="button"
-          onClick={handleExportIcs}
-          className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-        >
-          <Calendar className="w-4 h-4" />
-          <span>Add to Cal (.ics)</span>
-        </button>
+      <div className="bg-[#faf2ee] border-2 border-[#1e1b19] rounded-xl p-4 shadow-press space-y-2.5">
+        <div className="flex items-center justify-between pb-1 border-b border-[#1e1b19]/15 text-xs font-mono font-bold text-[#594139]">
+          <span>⚡ Export &amp; Broadcast Suite</span>
+          <span className="text-[10px] text-[#8d7168]">Verified actions</span>
+        </div>
 
-        <button
-          type="button"
-          onClick={handleCopyCleanNotes}
-          className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#ffffff] hover:bg-[#f4ece8] text-[#1e1b19] font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-        >
-          {copiedNote ? <Check className="w-4 h-4 text-[#46664b]" /> : <Copy className="w-4 h-4" />}
-          <span>{copiedNote ? 'Copied Notes!' : 'Copy Notes'}</span>
-        </button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 font-mono text-xs">
+          <button
+            type="button"
+            onClick={handleExportIcs}
+            className="h-11 w-full whitespace-nowrap inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          >
+            <Calendar className="w-4 h-4 shrink-0 text-white" />
+            <span>Add to Calendar (.ics)</span>
+          </button>
 
-        <button
-          type="button"
-          onClick={handleShareWhatsApp}
-          className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#46664b] hover:bg-[#345239] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-          title="Share to WhatsApp"
-        >
-          <MessageSquare className="w-4 h-4" />
-          <span>WhatsApp</span>
-        </button>
+          <button
+            type="button"
+            onClick={handleCopyCleanNotes}
+            className="h-11 w-full whitespace-nowrap inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#ffffff] hover:bg-[#f4ece8] text-[#1e1b19] font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          >
+            {copiedNote ? (
+              <Check className="w-4 h-4 shrink-0 text-[#46664b]" />
+            ) : (
+              <Copy className="w-4 h-4 shrink-0 text-[#a73400]" />
+            )}
+            <span>{copiedNote ? 'Copied Notes!' : 'Copy Notes'}</span>
+          </button>
 
-        <button
-          type="button"
-          onClick={() => setIsDiscordModalOpen(true)}
-          className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 py-2.5 bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-          title="Broadcast to Discord Server"
-        >
-          <Send className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Discord</span>
-        </button>
+          <button
+            type="button"
+            onClick={handleShareWhatsApp}
+            className="h-11 w-full whitespace-nowrap inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#46664b] hover:bg-[#345239] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            title="Share to WhatsApp"
+          >
+            <MessageSquare className="w-4 h-4 shrink-0 text-white" />
+            <span>Share WhatsApp</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsDiscordModalOpen(true)}
+            className="h-11 w-full whitespace-nowrap inline-flex items-center justify-center gap-2 px-3 py-2 bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            title="Broadcast to Discord Server"
+          >
+            <Send className="w-4 h-4 shrink-0 text-white" />
+            <span>Broadcast Discord</span>
+          </button>
+        </div>
       </div>
 
       {/* Map Wayfinder Modal */}
