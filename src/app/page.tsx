@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
   RefreshCw,
   GitBranch,
-  Sparkles,
   Cpu,
   Layers,
   ExternalLink,
@@ -16,7 +15,6 @@ import { SplitViewComparison } from '@/components/SplitViewComparison';
 import { StructuredResultCard } from '@/components/StructuredResultCard';
 import { AccessLensLogo } from '@/components/AccessLensLogo';
 import { AccessLensAnalysis, SamplePoster, HotspotDetail } from '@/lib/types';
-import { SAMPLE_POSTERS } from '@/lib/sample-data';
 import { scanQrCodeFromDataUrl } from '@/lib/qr-scanner';
 
 export default function Home() {
@@ -95,13 +93,6 @@ export default function Home() {
     }
   };
 
-  const handleSelectDirectSample = (sample: SamplePoster) => {
-    setSelectedImage(sample.thumbnailPath);
-    setAnalysisResult(sample.cachedResult);
-    setSelectedHotspot(null);
-    setError(null);
-  };
-
   const handleReset = () => {
     setSelectedImage(null);
     setAnalysisResult(null);
@@ -110,10 +101,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff8f5] text-[#1e1b19] flex flex-col font-serif bg-newsprint">
-      {/* Top Zine Header with Tape Ticker */}
+    <div className="min-h-screen bg-[#fff8f5] text-[#1e1b19] flex flex-col font-serif bg-newsprint overflow-x-hidden">
+      {/* Top Zine Header */}
       <header className="sticky top-0 z-50 bg-[#faf2ee]/95 backdrop-blur-md border-b-2 border-[#1e1b19] shadow-press-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-3.5 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-4">
           {/* Brand & Edition */}
           <div className="flex items-center gap-3">
             <AccessLensLogo size={40} className="shrink-0 -rotate-2" />
@@ -132,36 +123,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Quick Tape Selector */}
-          <div className="hidden lg:flex items-center gap-2 font-mono text-xs overflow-x-auto py-0.5">
-            <span className="text-[#a73400] font-bold whitespace-nowrap shrink-0 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-[#cb4914]" />
-              Sample Tapes:
-            </span>
-            {SAMPLE_POSTERS.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => handleSelectDirectSample(s)}
-                className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${i === 0
-                  ? 'washi-tape-tertiary text-[#2a1800] -rotate-1 hover:rotate-0'
-                  : i === 1
-                    ? 'washi-tape-secondary text-[#03210c] rotate-1 hover:rotate-0'
-                    : 'washi-tape-primary text-[#390c00] -rotate-2 hover:rotate-0'
-                  }`}
-              >
-                Tape #{i + 1}: {s.shortLabel || 'Notice'}
-              </button>
-            ))}
-          </div>
-
           {/* Action CTAs */}
-          <div className="flex items-center gap-2 font-mono text-xs shrink-0">
+          <div className="flex items-center gap-2.5 font-mono text-xs shrink-0">
             <a
               href="https://github.com/SynthReaper/AccessLens"
               target="_blank"
               rel="noopener noreferrer"
-              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ffffff] hover:bg-[#faf2ee] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+              className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#ffffff] hover:bg-[#faf2ee] border-2 border-[#1e1b19] text-[#1e1b19] font-bold rounded-lg shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
               <GitBranch className="w-3.5 h-3.5 text-[#a73400]" />
               <span>Public Repo</span>
@@ -171,7 +139,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>New Notice</span>
@@ -284,23 +252,23 @@ export default function Home() {
           <div className="space-y-4">
             {/* Top Folio Status Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-dashed border-[#1e1b19]/25">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-[#a73400] text-white font-mono text-xs font-bold rounded border-2 border-[#1e1b19] shadow-press-sm -rotate-1">
+              <div className="flex items-center gap-2.5 flex-wrap min-w-0">
+                <span className="whitespace-nowrap shrink-0 px-3 py-1 bg-[#a73400] text-white font-mono text-xs font-bold rounded border-2 border-[#1e1b19] shadow-press-sm -rotate-1">
                   NOTICE #{analysisResult.category.toUpperCase().slice(0, 8)}
                 </span>
-                <span className="font-display font-bold text-xl sm:text-2xl text-[#1e1b19] tracking-tight">
+                <h1 className="font-display font-bold text-xl sm:text-2xl text-[#1e1b19] tracking-tight truncate max-w-lg md:max-w-2xl">
                   {analysisResult.eventDetails.title || 'Campus Circular Details'}
-                </span>
-                <span className="px-2.5 py-0.5 bg-[#c8ecca] text-[#03210c] font-mono text-[10px] font-bold border border-[#46664b] rounded rotate-1 shadow-press-sm">
+                </h1>
+                <span className="whitespace-nowrap shrink-0 px-2.5 py-0.5 bg-[#c8ecca] text-[#03210c] font-mono text-[10px] font-bold border border-[#46664b] rounded rotate-1 shadow-press-sm">
                   🍁 VERIFIED BY GEMMA 4
                 </span>
               </div>
 
-              <div className="font-mono text-xs text-[#594139] flex items-center gap-2">
-                <span className="px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
+              <div className="font-mono text-xs text-[#594139] flex items-center gap-2 shrink-0">
+                <span className="whitespace-nowrap px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
                   ⏱️ {(analysisResult.processingTimeMs / 1000).toFixed(2)}s
                 </span>
-                <span className="px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
+                <span className="whitespace-nowrap px-2.5 py-1 bg-white border border-[#1e1b19] rounded font-bold shadow-press-sm">
                   🎯 {analysisResult.hotspots.length} Markers Active
                 </span>
               </div>

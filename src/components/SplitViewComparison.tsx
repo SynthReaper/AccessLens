@@ -67,12 +67,12 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
         </div>
 
         {/* Stationery Controls */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap shrink-0">
           {/* De-skew / Perspective Enhance Toggle */}
           <button
             type="button"
             onClick={() => setIsDeskewEnhanced(!isDeskewEnhanced)}
-            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded font-mono text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+            className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-mono text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
               isDeskewEnhanced
                 ? 'bg-[#cb4914] text-white'
                 : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#faf2ee]'
@@ -88,7 +88,7 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
             <button
               type="button"
               onClick={() => setShowOverlay(!showOverlay)}
-              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded font-mono text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+              className={`whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-mono text-[11px] font-bold border-2 border-[#1e1b19] shadow-press-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                 showOverlay
                   ? 'bg-[#c8ecca] text-[#03210c]'
                   : 'bg-[#faf2ee] text-[#594139] hover:bg-[#e9e1dd]'
@@ -100,7 +100,7 @@ export const SplitViewComparison: React.FC<SplitViewComparisonProps> = ({
           )}
 
           {/* Zoom Buttons */}
-          <div className="flex items-center gap-1 bg-[#ffffff] rounded border-2 border-[#1e1b19] shadow-press-sm p-0.5">
+          <div className="flex items-center gap-1 bg-[#ffffff] rounded border-2 border-[#1e1b19] shadow-press-sm p-0.5 shrink-0">
             <button
               type="button"
               onClick={handleZoomOut}
