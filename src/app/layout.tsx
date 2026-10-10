@@ -25,8 +25,16 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AccessLens — Campus Notice Intelligence Zine",
+  title: "AccessLens — Campus Notice Intelligence",
   description: "Tactile zine notice workbench powered by Google Gemma 4 spatial vision models for Hacktoberfest 2026 × MUJ.",
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ],
+    shortcut: '/icon.svg',
+    apple: '/icon.svg'
+  }
 };
 
 export default function RootLayout({

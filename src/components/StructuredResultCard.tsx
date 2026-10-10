@@ -103,11 +103,6 @@ Extracted via AccessLens with Gemma 4 Vision.`;
     <div className="flex flex-col space-y-5">
       {/* CARD 1: Quick Scoop (TL;DR) - Styled like a legal pad memo with tape */}
       <div className="relative bg-[#ffddb6]/35 border-2 border-[#1e1b19] rounded-xl p-5 sm:p-6 shadow-press">
-        {/* Memo clip tape */}
-        <div className="absolute -top-3.5 right-6 px-3.5 py-0.5 washi-tape-tertiary -rotate-2 rounded-xs border-2 border-[#1e1b19] flex items-center justify-center shadow-press-sm whitespace-nowrap z-10 pointer-events-none">
-          <span className="font-mono text-[9px] uppercase tracking-wider text-[#2a1800] font-bold">MEMO CLIP</span>
-        </div>
-
         <div className="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-dashed border-[#805200]/30">
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-[#a73400] text-lg">⚡</span>
