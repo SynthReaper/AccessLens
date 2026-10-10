@@ -17,6 +17,7 @@ import { StructuredResultCard } from '@/components/StructuredResultCard';
 import { AccessLensLogo } from '@/components/AccessLensLogo';
 import { AccessLensAnalysis, SamplePoster, HotspotDetail } from '@/lib/types';
 import { SAMPLE_POSTERS } from '@/lib/sample-data';
+import { scanQrCodeFromDataUrl } from '@/lib/qr-scanner';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -40,6 +41,32 @@ export default function Home() {
       setAnalysisResult(sampleData.cachedResult);
       return;
     }
+
+    // Scan QR code client-side concurrently
+    scanQrCodeFromDataUrl(previewUrl || base64).then((qr) => {
+      if (qr && qr.data) {
+        setAnalysisResult((prev) => {
+          if (!prev) return prev;
+          const alreadyHas = prev.hotspots.some((h) => h.value === qr.data);
+          if (alreadyHas) return prev;
+
+          const newHotspot: HotspotDetail = {
+            id: `qr-decoded-${Date.now()}`,
+            label: 'Decoded QR / RSVP Link',
+            value: qr.data,
+            actionType: 'link',
+            box2d: qr.box2d || [750, 750, 950, 950],
+            confidence: 'high',
+            note: 'Client-side hardware decoded QR matrix'
+          };
+
+          return {
+            ...prev,
+            hotspots: [newHotspot, ...prev.hotspots]
+          };
+        });
+      }
+    });
 
     // Call live API
     setIsLoading(true);
@@ -299,6 +326,7 @@ export default function Home() {
                   analysis={analysisResult}
                   selectedHotspotId={selectedHotspot?.id || null}
                   onSelectHotspot={setSelectedHotspot}
+                  imageBase64={selectedImage}
                 />
               </div>
             </div>

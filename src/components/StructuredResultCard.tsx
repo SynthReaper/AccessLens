@@ -11,25 +11,39 @@ import {
   Copy,
   MessageSquare,
   BookmarkCheck,
-  AlertOctagon
+  AlertOctagon,
+  Volume2,
+  VolumeX,
+  Navigation,
+  Send,
+  QrCode
 } from 'lucide-react';
 import { AccessLensAnalysis, HotspotDetail } from '@/lib/types';
 import { downloadIcsFile } from '@/lib/calendar-export';
+import { speakNotice, stopSpeakingNotice } from '@/lib/speech-service';
+import { CampusMapModal } from './CampusMapModal';
+import { DiscordWebhookModal } from './DiscordWebhookModal';
+import { NoticeAskAssistant } from './NoticeAskAssistant';
 
 interface StructuredResultCardProps {
   analysis: AccessLensAnalysis;
   selectedHotspotId?: string | null;
   onSelectHotspot?: (hotspot: HotspotDetail | null) => void;
+  imageBase64?: string | null;
 }
 
 export const StructuredResultCard: React.FC<StructuredResultCardProps> = ({
   analysis,
   selectedHotspotId,
-  onSelectHotspot
+  onSelectHotspot,
+  imageBase64
 }) => {
   const { eventDetails, actionItems, uncertainties, keyTakeaways, hotspots } = analysis;
   const [copiedNote, setCopiedNote] = React.useState(false);
   const [copiedField, setCopiedField] = React.useState<string | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = React.useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = React.useState(false);
+  const [isDiscordModalOpen, setIsDiscordModalOpen] = React.useState(false);
   const [checkedActions, setCheckedActions] = React.useState<Record<string, boolean>>({
     [actionItems[0]?.id || '']: true
   });
@@ -72,6 +86,19 @@ Extracted via AccessLens with Gemma 4 Vision.`;
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
 
+  const handleToggleAudio = () => {
+    if (isPlayingAudio) {
+      stopSpeakingNotice();
+      setIsPlayingAudio(false);
+    } else {
+      const speechText = `${eventDetails.title || 'Campus notice'}. ${analysis.headlineSummary}. Date: ${eventDetails.date || 'Check notice'}. Venue: ${eventDetails.venue || 'Campus'}. Action item: ${actionItems[0]?.description || 'Review notice details'}.`;
+      const started = speakNotice(speechText, () => setIsPlayingAudio(false));
+      if (started) {
+        setIsPlayingAudio(true);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col space-y-5">
       {/* CARD 1: Quick Scoop (TL;DR) - Styled like a legal pad memo with tape */}
@@ -86,9 +113,25 @@ Extracted via AccessLens with Gemma 4 Vision.`;
             <span className="text-[#a73400] text-lg">⚡</span>
             <h2 className="font-display font-bold text-lg text-[#1e1b19]">Quick Scoop (TL;DR)</h2>
           </div>
-          <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-[#ffffff] text-[#1e1b19] border border-[#1e1b19] font-bold shadow-press-sm">
-            ☕ 15-sec digest
-          </span>
+          <div className="flex items-center gap-2">
+            {/* Audio Speech Button */}
+            <button
+              type="button"
+              onClick={handleToggleAudio}
+              className={`inline-flex items-center gap-1 font-mono text-[11px] px-2.5 py-0.5 rounded-full border-2 border-[#1e1b19] font-bold shadow-press-xs active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+                isPlayingAudio
+                  ? 'bg-[#cb4914] text-white animate-pulse'
+                  : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#faf2ee]'
+              }`}
+              title="Vocalize Notice with Web Speech"
+            >
+              {isPlayingAudio ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#a73400]" />}
+              <span>{isPlayingAudio ? 'Stop Voice' : 'Read Aloud'}</span>
+            </button>
+            <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-[#ffffff] text-[#1e1b19] border border-[#1e1b19] font-bold shadow-press-sm hidden sm:inline">
+              ☕ 15-sec digest
+            </span>
+          </div>
         </div>
 
         <p className="font-serif text-base text-[#1e1b19] leading-relaxed pt-3">
@@ -119,18 +162,20 @@ Extracted via AccessLens with Gemma 4 Vision.`;
             <div className="flex flex-wrap gap-1.5">
               {hotspots.map((hs) => {
                 const isSelected = selectedHotspotId === hs.id;
+                const isQr = hs.actionType === 'link' || hs.label.toLowerCase().includes('qr') || hs.label.toLowerCase().includes('link');
                 return (
                   <button
                     key={hs.id}
                     type="button"
                     onClick={() => onSelectHotspot && onSelectHotspot(isSelected ? null : hs)}
-                    className={`font-mono text-xs px-2.5 py-1 rounded-xs border-2 border-[#1e1b19] transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-press-sm font-bold ${
+                    className={`font-mono text-xs px-2.5 py-1 rounded-xs border-2 border-[#1e1b19] transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-press-sm font-bold flex items-center gap-1 ${
                       isSelected
                         ? 'bg-[#a73400] text-white -rotate-1'
                         : 'bg-[#ffffff] text-[#1e1b19] hover:bg-[#faf2ee]'
                     }`}
                   >
-                    {hs.label}
+                    {isQr && <QrCode className="w-3 h-3 text-[#a73400]" />}
+                    <span>{hs.label}</span>
                   </button>
                 );
               })}
@@ -192,17 +237,18 @@ Extracted via AccessLens with Gemma 4 Vision.`;
             </div>
           </div>
 
-          {/* Slip 3: Venue */}
+          {/* Slip 3: Venue with Map Pin Button */}
           <div className="bg-[#faf2ee] border-2 border-[#1e1b19] rounded-lg p-3 shadow-press-sm flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <MapPin className="w-4 h-4 text-[#46664b]" />
               <button
                 type="button"
-                onClick={() => copyToClipboard(eventDetails.venue || 'Campus', 'venue')}
-                className="text-[#594139] hover:text-[#a73400] text-xs font-mono font-bold"
-                title="Copy venue"
+                onClick={() => setIsMapModalOpen(true)}
+                className="text-[#46664b] hover:text-[#2d4932] text-xs font-mono font-bold flex items-center gap-0.5 underline"
+                title="View campus directions"
               >
-                {copiedField === 'venue' ? '✓ Copied' : <Copy className="w-3.5 h-3.5" />}
+                <Navigation className="w-3 h-3" />
+                <span>Wayfinder</span>
               </button>
             </div>
             <div className="mt-2">
@@ -283,7 +329,10 @@ Extracted via AccessLens with Gemma 4 Vision.`;
         </div>
       </div>
 
-      {/* CARD 4: Gemma's Vision Guard (Physical Anomaly Warnings) */}
+      {/* CARD 4: Interactive Q&A Assistant */}
+      <NoticeAskAssistant analysis={analysis} imageBase64={imageBase64} />
+
+      {/* CARD 5: Gemma's Vision Guard (Physical Anomaly Warnings) */}
       <div className="bg-[#e9e1dd] border-2 border-[#1e1b19] rounded-xl p-5 shadow-press space-y-3">
         <div className="flex items-start justify-between gap-2 pb-1 border-b border-[#8d7168]/30">
           <div className="flex items-center gap-2">
@@ -329,7 +378,7 @@ Extracted via AccessLens with Gemma 4 Vision.`;
         </div>
       </div>
 
-      {/* CARD 5: Handy Actions Bar (Tactile Buttons) */}
+      {/* CARD 6: Handy Actions Bar (Tactile Buttons) */}
       <div className="bg-[#faf2ee] border-2 border-[#1e1b19] rounded-xl p-4 shadow-press flex flex-col sm:flex-row gap-2.5 items-center justify-between font-mono text-xs">
         <button
           type="button"
@@ -337,7 +386,7 @@ Extracted via AccessLens with Gemma 4 Vision.`;
           className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#a73400] hover:bg-[#cb4914] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
         >
           <Calendar className="w-4 h-4" />
-          <span>Add to Calendar (.ics)</span>
+          <span>Add to Cal (.ics)</span>
         </button>
 
         <button
@@ -358,7 +407,36 @@ Extracted via AccessLens with Gemma 4 Vision.`;
           <MessageSquare className="w-4 h-4" />
           <span>WhatsApp</span>
         </button>
+
+        <button
+          type="button"
+          onClick={() => setIsDiscordModalOpen(true)}
+          className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-3 py-2.5 bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold rounded-lg border-2 border-[#1e1b19] shadow-press-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          title="Broadcast to Discord Server"
+        >
+          <Send className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Discord</span>
+        </button>
       </div>
+
+      {/* Map Wayfinder Modal */}
+      {isMapModalOpen && (
+        <CampusMapModal
+          venueText={eventDetails.venue}
+          onClose={() => setIsMapModalOpen(false)}
+        />
+      )}
+
+      {/* Discord Broadcast Modal */}
+      {isDiscordModalOpen && (
+        <DiscordWebhookModal
+          title={eventDetails.title}
+          summary={analysis.headlineSummary}
+          date={eventDetails.date}
+          venue={eventDetails.venue}
+          onClose={() => setIsDiscordModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
