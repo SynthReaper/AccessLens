@@ -1,159 +1,154 @@
-# 🔍 AccessLens: Intelligent Campus Notice Parser
+# 🔍 AccessLens: Campus Notice Parser
 
 [![AccessLens CI](https://github.com/SynthReaper/AccessLens/actions/workflows/ci.yml/badge.svg)](https://github.com/SynthReaper/AccessLens/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Model](https://img.shields.io/badge/Model-Google%20Gemma%204%20(31B)--38bdf8)](https://ai.google.dev/gemma)
+[![Model](https://img.shields.io/badge/Model-Google%20Gemma%204%20(31B)-338bdf)](https://ai.google.dev/gemma)
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest%202026-MUJ%20Challenge-orange)](https://hacktoberfest-handbook.mlh.com)
 
-> **One-Line Pitch:** Take a photo of a campus notice, flyer, or event poster; **AccessLens** turns it into structured, verifiable, action-ready intelligence using Google **Gemma 4**'s multimodal vision capabilities through the Gemini API.
+> **Take a photo of a campus notice, flyer, or event poster. AccessLens turns it into structured, verifiable, action-ready information using Google's open-weights Gemma 4 vision model through the Gemini API.**
 
-Built for **Hacktoberfest 2026 × MUJ**:
+**Live demo:** https://accesslens-sr.vercel.app/
 
-- 🎯 **Challenge 1:** Best Use of Gemma 4 (Multimodal image-to-action reasoning)
-- 🎯 **Challenge 2:** Best Open-Source AI Project (Public repository, issue-driven development, CI pipeline)
+Built for **Hacktoberfest Hack Day Jaipur × MUJ (2026)**:
+
+- 🎯 **Best Use of Gemma 4**: multimodal image-to-action reasoning
+- 🎯 **Best Open-Source AI Project**: open-weights model at the core, public MIT repo, CI pipeline
 
 ---
 
 ## 🌟 Why AccessLens?
 
-Students frequently encounter crucial campus information pinned to physical noticeboards, taped to elevator doors, or shared as compressed photos on WhatsApp:
+Important campus information often lives on physical noticeboards, elevator doors, or compressed WhatsApp photos. Event dates, room changes, audition cutoffs, and fee deadlines are buried in cluttered, badly lit, sometimes torn notices, and students miss them.
 
-- Event dates, room shifts, audition cutoffs, fee deadlines, library hour adjustments.
-- These notices are often cluttered, poorly lit, or have torn corners.
-- Students miss deadlines because extracting "What do I actually need to do?" requires deciphering paragraphs of fine print.
+AccessLens answers one question: **"What do I actually need to do?"**
 
-**AccessLens** solves this with **Gemma 4's multimodal understanding**:
-
-1. **Plain-Language Summary:** Injects clarity before students get overwhelmed by fine print.
-2. **Confirmed Logistics:** Cleanly isolates Title, Venue, Date, Time, Organizer, and Registration link.
-3. **Action Items & Deadlines:** Extracts only the concrete actions students must take.
-4. **Zero-Hallucination Uncertainty Detection:** Explicitly flags torn, cropped, or ambiguous text as `unknown` rather than fabricating details.
-5. **Side-by-Side Verification:** Places the original photo right next to the extracted cards with zoom controls so users can verify critical information with zero friction.
-6. **Action Toolbar:** One-click `.ics` calendar download, markdown copy, and WhatsApp group sharing.
+1. **Plain-language summary** of the notice, without the fine print.
+2. **Confirmed logistics:** title, venue, date, time, organizer, registration link.
+3. **Action items and deadlines:** only the concrete things a student must do.
+4. **Uncertainty flagging:** text that is torn, cropped, or ambiguous is marked `unknown` instead of guessed.
+5. **Side-by-side verification:** the original photo sits next to the extracted cards, with zoom, so users can check critical details quickly.
+6. **One-click actions:** `.ics` calendar download, Markdown copy, WhatsApp share, Discord broadcast.
 
 ---
 
-## 🔬 Gemma Integration & Code Verification
+## 🔬 Where Gemma 4 is used
 
-As instructed in the [MLH Gemma Hack Day guidelines](https://hacktoberfest-handbook.mlh.com/hack-days-partner-modules/partner-challenge-google-gemma), judges can inspect the actual model calls directly in the codebase:
+The model calls live in plain sight so they are easy to inspect:
 
-- **Primary Multimodal Client:** [`src/lib/gemma-client.ts`](file:///d:/Competition/Hackathons/HackOctoberXMUJ/src/lib/gemma-client.ts)
-  - Uses the official `@google/genai` SDK (`GoogleGenAI`).
-  - Calls `gemma-4-31b-it` with image `inlineData` and JSON schema enforcement.
-  - Features dual-track resilience: if `gemma-4-31b-it` experiences upstream limits, it falls back to `gemma-3-27b-it`.
-- **API Endpoint:** [`src/app/api/analyze/route.ts`](file:///d:/Competition/Hackathons/HackOctoberXMUJ/src/app/api/analyze/route.ts)
-- **Live Model Attribution Badge:** [`src/components/ModelBadge.tsx`](file:///d:/Competition/Hackathons/HackOctoberXMUJ/src/components/ModelBadge.tsx) displays the exact model ID and inference latency for every result.
-- **Fail-Safe Stage Demo Fixtures:** Pre-baked realistic campus notices ensure live presentations on stage at MUJ never fail due to campus Wi-Fi drops.
+| What | Where |
+| --- | --- |
+| Multimodal client (image + JSON schema) | [`src/lib/gemma-client.ts`](src/lib/gemma-client.ts) |
+| Analyze endpoint | [`src/app/api/analyze/route.ts`](src/app/api/analyze/route.ts) |
+| Notice Q&A endpoint | `src/app/api/ask` |
+| Live model attribution (model ID + latency) | [`src/components/ModelBadge.tsx`](src/components/ModelBadge.tsx) |
+
+- Uses the official `@google/genai` SDK.
+- Primary model: `gemma-4-31b-it`, called with image `inlineData` and an enforced JSON response schema.
+- Fallback model: `gemma-3-27b-it`, used only if the primary hits upstream limits.
+- Every result shows the model that actually produced it, so you can tell Gemma output from a fallback or a demo fixture.
+
+### Demo mode
+
+If no `GEMINI_API_KEY` is set (or `ENABLE_DEMO_FALLBACKS` is on and the API is unreachable), AccessLens serves pre-verified sample notices so a presentation never depends on campus Wi-Fi. Results from fixtures are labeled as such in the UI. Uploading your own photo with a valid key always goes through the model.
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ Architecture
 
 ```mermaid
 graph LR
-    A[Student Photo / Camera] --> B[Next.js 15 Client]
-    B --> C[API Route: /api/analyze]
-    C --> D{GoogleGenAI Client}
-    D -->|Target Model| E[gemma-4-31b-it]
-    D -->|Fallback Model| F[gemma-3-27b-it]
-    D -->|Offline Resilience| G[Curated Campus Fixtures]
-    E --> H[JSON Normalization]
+    A[Student photo / camera] --> B[Next.js client]
+    B --> C[POST /api/analyze]
+    C --> D{GoogleGenAI client}
+    D -->|Primary| E[gemma-4-31b-it]
+    D -->|Fallback| F[gemma-3-27b-it]
+    D -->|No key / offline| G[Labeled demo fixtures]
+    E --> H[JSON normalization]
     F --> H
     G --> H
-    H --> I[Side-by-Side Split View Canvas]
-    I --> J[RFC 5545 .ics Calendar Export]
-    I --> K[WhatsApp Group Broadcast]
+    H --> I[Side-by-side verification view]
+    I --> J[.ics calendar export]
+    I --> K[WhatsApp / Discord share]
 ```
 
 ---
 
-## 🚀 Quickstart & Setup
+## ✨ Features
 
-### Prerequisites
+- **Gemma 4 vision extraction:** bounding boxes (`[ymin, xmin, ymax, xmax]`), summaries, logistics, action items, and `unknown` flags for unreadable fields.
+- **QR detection:** finds registration QR codes in the image client-side with `jsQR` and pins them on the photo.
+- **Read Aloud:** Web Speech synthesis for visually impaired students.
+- **MUJ Campus Wayfinder:** links detected venues (AB1/AB2/AB3, Sanganane Auditorium, Central Library) to directions and map pins.
+- **Notice Q&A (`/api/ask`):** multi-turn questions over the extracted notice, powered by Gemma 4.
+- **Discord broadcaster (`/api/broadcast`):** posts a rich embed to a club or batch server via webhook.
+- **Contrast enhancer:** in-browser filter to improve legibility of dim or wrinkled notices.
+- **Export toolkit:** RFC 5545 `.ics` calendar file, Markdown summary, WhatsApp share.
 
-- Node.js 20+ (tested on Node 20 & 24)
-- npm 10+
-- (Optional) Google Gemini API Key with Gemma access from [Google AI Studio](https://aistudio.google.com/)
+---
 
-### 1. Clone & Install
+## 🚀 Quickstart
+
+**Prerequisites:** Node.js 20+, npm 10+, and (optionally) a Gemini API key with Gemma access from [Google AI Studio](https://aistudio.google.com/).
 
 ```bash
 git clone https://github.com/SynthReaper/AccessLens.git
-cd accesslens
+cd AccessLens
 npm install
-```
-
-### 2. Configure Environment
-
-Copy the `.env.example` file to `.env.local`:
-
-```bash
 cp .env.example .env.local
 ```
 
-Add your Gemini API key in `.env.local`:
+Edit `.env.local`:
 
-```env
-GEMINI_API_KEY=your_actual_key_here
+```bash
+GEMINI_API_KEY=your_key_here
 GEMMA_PRIMARY_MODEL=gemma-4-31b-it
 GEMMA_FALLBACK_MODEL=gemma-3-27b-it
 ENABLE_DEMO_FALLBACKS=true
 ```
 
-*(Note: If no key is set, AccessLens automatically runs in resilient demo mode with instant verified campus test samples).*
-
-### 3. Run Development Server
+Run it:
 
 ```bash
-npm run dev
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Without a key the app starts in demo mode with sample notices.
 
-### 4. Run Automated Tests & Linter
+### Tests and checks
 
 ```bash
-# Run unit tests (RFC 5545 calendar & schema fixtures)
-npm test
-
-# Run ESLint check
-npm run lint
-
-# Run Next.js production build
-npm run build
+npm test           # unit tests: RFC 5545 calendar export, schema fixtures
+npm run lint       # ESLint
+npm run build      # Next.js production build
 ```
 
 ---
 
-## ✨ Feature Suite
+## ⚠️ Limitations
 
-1. **Gemma 4 Multimodal Vision Extraction**: 2D coordinate bounding boxes (`[ymin, xmin, ymax, xmax]`), zero-hallucination uncertainty detection for torn/cropped notices, plain-language summaries, logistics parsing.
-2. **Client-Side QR Code Engine**: Detects QR registration codes directly inside notice images via `jsQR` with interactive pin overlays.
-3. **Web Speech Synthesizer ("Read Aloud")**: Voice accessibility for visually impaired students.
-4. **MUJ Campus Wayfinder**: Built-in interactive map linking detected venues (Academic Blocks AB1/AB2/AB3, Sanganane Auditorium, Central Library) with walking directions and Google Maps pins.
-5. **Interactive Notice Q&A Assistant (`/api/ask`)**: Multi-turn contextual querying over notice content powered by Gemma 4.
-6. **Discord Webhook Broadcaster (`/api/broadcast`)**: 1-click rich embed broadcast directly into student clubs and batch Discord servers.
-7. **Document Contrast Enhancer**: In-browser image processing filter boosting low-light or wrinkled notice legibility.
-8. **Export Toolkit**: RFC 5545 `.ics` calendar sync, markdown summary export, and direct WhatsApp group forwarder.
+- AccessLens reduces guessing by flagging unreadable text as `unknown`, but model output can still contain mistakes. That is why the original image is always shown beside the extraction. Check dates and deadlines before relying on them.
+- Accuracy drops on heavily damaged, very small, or low-resolution text.
+- The campus wayfinder currently covers MUJ venues only.
 
 ---
 
-## 📋 Open-Source Compliance & GitHub History
+## 🤝 Contributing
 
-AccessLens is developed transparently according to Hacktoberfest × MUJ guidelines:
+The project is open source under the MIT license, and contributions are welcome.
 
-- **MIT License:** Included in [`LICENSE`](./LICENSE).
-- **Issue #1 (Team Registration):** Full registration log documented in [`docs/ISSUES_AND_PRS.md`](./docs/ISSUES_AND_PRS.md).
-- **Issue Tracking:** Issues `#2` through `#7` track multimodal API, mobile camera, split view, calendar export, high-impact accessibility features, and CI/CD.
-- **CI Workflow:** Automated build and test on every PR in [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
+1. Pick an open issue (or open one describing the change).
+2. Fork, branch, and make your change.
+3. Run `npm test`, `npm run lint`, and `npm run build`.
+4. Open a pull request that references the issue. CI runs the same checks on every PR ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+Project background and the original issue plan are in [`docs/ISSUES_AND_PRS.md`](docs/ISSUES_AND_PRS.md). Agent-specific repo notes are in [`AGENTS.md`](AGENTS.md).
 
 ---
 
-## 👥 Authors & Attribution
+## 📄 License
 
-- **Aditya Goyal (@SynthReaper)**
-  - Role: Solo Developer & Architect
-  - Institution: Manipal University Jaipur (MUJ)
-  - GitHub: [SynthReaper](https://github.com/SynthReaper)
-- Built for **Hacktoberfest 2026 × MUJ** (October 2026).
+[MIT](LICENSE)
 
+## 👤 Author
+
+**Aditya Goyal** ([@SynthReaper](https://github.com/SynthReaper)), Manipal University Jaipur. Built solo for Hacktoberfest 2026 × MUJ.
